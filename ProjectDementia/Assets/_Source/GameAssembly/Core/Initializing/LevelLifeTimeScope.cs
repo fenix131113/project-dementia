@@ -18,13 +18,13 @@ namespace Core.Initializing
 
             var dataRepository = new DataRepository<ScriptableObject>();
             dataRepository.Create(typeof(ItemSO), ResourceLoader.Load<ItemSO>(DataPath.ITEMS_CONFIGS_PATH));
-            
+
             builder.RegisterInstance(dataRepository);
-            
+
             #endregion
 
             #region InventorySystem
-            
+
             builder.Register<ItemsContainer>(Lifetime.Singleton);
             builder.Register<PlayersInventory>(Lifetime.Singleton);
 
