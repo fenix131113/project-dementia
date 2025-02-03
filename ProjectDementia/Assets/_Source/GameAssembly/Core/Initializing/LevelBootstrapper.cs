@@ -20,7 +20,7 @@ namespace Core.Initializing
         
         public void Start()
         {
-            Debug.Log("Start");
+            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interactable.Base;
+using UnityEngine;
 using Utils;
 
 namespace Player
@@ -17,17 +18,15 @@ namespace Player
                 interactHelper.gameObject.SetActive(false);
                 return;
             }
-            
+
             interactHelper.gameObject.SetActive(true);
 
-            if(!Input.GetKeyDown(KeyCode.E))
+            if (!Input.GetKeyDown(KeyCode.E))
                 return;
-            
+
             if (hit.transform.gameObject &&
                 LayerService.CheckLayersEquality(hit.transform.gameObject.layer, interactableLayer))
-                Debug.Log("Interactable");
-            
-            //TODO: add interactable interaction
+                hit.transform.GetComponent<AInteractableObject>()?.Interact();
         }
     }
 }

@@ -42,6 +42,8 @@ MonoBehaviour:
   - SetNickname
   - KillObject
   - DeactivateInvisibleForOther
+  - Interact
+  - TakeItem
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
