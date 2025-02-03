@@ -1,5 +1,4 @@
-﻿using Photon.Pun;
-using UnityEngine;
+﻿using UnityEngine;
 using Utils;
 
 namespace Player
@@ -26,7 +25,9 @@ namespace Player
             
             if (hit.transform.gameObject &&
                 LayerService.CheckLayersEquality(hit.transform.gameObject.layer, interactableLayer))
-                hit.transform.GetComponent<PhotonView>().RPC("KillObject", RpcTarget.AllBuffered);
+                Debug.Log("Interactable");
+            
+            //TODO: add interactable interaction
         }
     }
 }

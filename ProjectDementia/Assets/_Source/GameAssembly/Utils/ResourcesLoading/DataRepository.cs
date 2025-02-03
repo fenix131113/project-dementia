@@ -9,7 +9,7 @@ namespace Utils.ResourcesLoading
     {
         private readonly Dictionary<Type, List<T>> _repository = new();
 
-        public void Create(Type key, T[] res)
+        public void Create(Type key, IEnumerable<T> res)
         {
             _repository.TryAdd(key, new List<T>());
             
