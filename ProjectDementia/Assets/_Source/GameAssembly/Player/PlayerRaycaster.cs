@@ -8,6 +8,7 @@ namespace Player
     public class PlayerRaycaster : MonoBehaviour
     {
         [SerializeField] private float animCenterPointTime;
+        [SerializeField] private float centerPointMultiplier;
         [SerializeField] private RectTransform centerPoint;
         [SerializeField] private GameObject interactHelper;
         [SerializeField] private LayerMask interactableLayer;
@@ -41,7 +42,7 @@ namespace Player
 
             interactHelper.gameObject.SetActive(true);
 
-            var growScale = _startSize * 2;
+            var growScale = _startSize * centerPointMultiplier;
 
             if (_growTween == null || !_growTween.IsActive())
             {

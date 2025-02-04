@@ -543,7 +543,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f30246e773024696bff4d9c85b9b9c74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animCenterPointTime: 0.4
+  animCenterPointTime: 0.35
+  centerPointMultiplier: 1.5
   centerPoint: {fileID: 2145171915820274096}
   interactHelper: {fileID: 6595890682014277391}
   interactableLayer:
