@@ -11,6 +11,8 @@ namespace Player
         [SerializeField] private TMP_Text playerNickLabel;
         [SerializeField] private float gravity = -9.81f;
         [SerializeField] private float sensitivity = 2f;
+        [SerializeField] private bool canMove;
+        [SerializeField] private bool canRotCam;
         [SerializeField] private PhotonView netView;
         [SerializeField] private GameObject[] invisibleObjectsForMyPlayer;
         [SerializeField] private GameObject[] invisibleObjectsForOtherPlayer;
@@ -26,6 +28,30 @@ namespace Player
         private float _shakeSpeed;
         private float _shakeAmount;
         private float _previousHorCamRot;
+        
+        /// <summary>
+        /// Set player controll
+        /// <list type="bullet"><c><b>False</b></c> - Off player controll and show cursor</list>
+        /// <br><list type="bullet"><c><b>True</b></c> - On player controll and hide cursor</list></br>
+        /// </summary>
+        public bool Controll
+        {
+            set
+            {
+                if (value)
+                {
+                    HideCursor();
+                    canRotCam = true;
+                    canMove = true;
+                }
+                else
+                {
+                    ShowCursor();
+                    canRotCam = false;
+                    canMove = false;
+                }
+            }
+        }
 
         private void Awake()
         {
@@ -109,7 +135,8 @@ namespace Player
 
         private void MovePlayerCamera()
         {
-            if (!netView.IsMine) return;
+            if (!netView.IsMine || !canRotCam)
+                return;
 
             var mouseInput = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
 
@@ -122,7 +149,8 @@ namespace Player
 
         private void MovePlayer()
         {
-            if (isDead) return;
+            if (isDead || !canMove)
+                return;
 
             var moveVector = transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.y));
             _currentSpeed = _currentSpeed == 0 ? _player.Speed : _currentSpeed;
