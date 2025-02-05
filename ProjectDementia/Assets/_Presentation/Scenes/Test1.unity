@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4258146fad467286d7fb9d2553b4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <InteractText>k__BackingField: "\u0412\u044B\u043D\u0435\u0441\u0442\u0438"
   <PhotonView>k__BackingField: {fileID: 31012921}
   item: {fileID: 11400000, guid: add1bb7668dea304dafcd52fc5a67fae, type: 2}
 --- !u!114 &31012921
@@ -479,6 +480,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4258146fad467286d7fb9d2553b4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <InteractText>k__BackingField: "\u0417\u0430\u0431\u0440\u0430\u0442\u044C"
   <PhotonView>k__BackingField: {fileID: 187538610}
   item: {fileID: 11400000, guid: 1b4a068f377038642ae95c0fa05ebf70, type: 2}
 --- !u!114 &187538610
@@ -656,6 +658,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4258146fad467286d7fb9d2553b4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <InteractText>k__BackingField: "\u0423\u043A\u0440\u0430\u0441\u0442\u044C"
   <PhotonView>k__BackingField: {fileID: 307375671}
   item: {fileID: 11400000, guid: 51c9192fd2e99ca4195fdb792529a8ab, type: 2}
 --- !u!114 &307375671
@@ -1493,6 +1496,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4258146fad467286d7fb9d2553b4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <InteractText>k__BackingField: "\u0412\u0437\u044F\u0442\u044C"
   <PhotonView>k__BackingField: {fileID: 989471379}
   item: {fileID: 11400000, guid: 6d6684f4ad9e99340a9edd6d3f8ed4ba, type: 2}
 --- !u!114 &989471379
@@ -2121,6 +2125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4258146fad467286d7fb9d2553b4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <InteractText>k__BackingField: "\u0417\u0430\u043B\u0443\u0442\u0430\u0442\u044C"
   <PhotonView>k__BackingField: {fileID: 1962884188}
   item: {fileID: 11400000, guid: d7f898a8dab19cf439ec17fb63a83c63, type: 2}
 --- !u!114 &1962884188
@@ -2299,6 +2304,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e4258146fad467286d7fb9d2553b4a1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <InteractText>k__BackingField: "\u041F\u043E\u0434\u043E\u0431\u0440\u0430\u0442\u044C"
   <PhotonView>k__BackingField: {fileID: 2066075034}
   item: {fileID: 11400000, guid: 06ec2b0fc5aa6b644b3e08ff7f0576c8, type: 2}
 --- !u!114 &2066075034
