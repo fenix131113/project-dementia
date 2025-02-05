@@ -25,8 +25,10 @@ namespace Core.Initializing
 
             #region InventorySystem
 
+            builder.Register<ItemSelector>(Lifetime.Singleton).AsSelf().As<IStartable>();
             builder.Register<ItemsContainer>(Lifetime.Singleton);
             builder.Register<PlayersInventory>(Lifetime.Singleton);
+            builder.Register<InventorySwitcher>(Lifetime.Singleton).AsSelf().As<ITickable>();
 
             #endregion
         }

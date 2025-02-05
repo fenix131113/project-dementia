@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
   m_Name: TestItem 2
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: 
-  <Icon>k__BackingField: {fileID: 21300000, guid: f00feafcf0675cd47a48f83ae42b06d4, type: 3}
+  <ItemName>k__BackingField: "\u0424\u043E\u0442\u043E\u043D \u044E\u043D\u0438\u0442\u0438"
+  <Icon>k__BackingField: {fileID: 21300000, guid: 56bbc6b42271d4177ac313247f47ac1f, type: 3}

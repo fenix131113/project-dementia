@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
-  m_Name: TestItem
+  m_Name: TestItem 4
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: "\u0424\u043E\u0442\u043E\u043D"
-  <Icon>k__BackingField: {fileID: 21300000, guid: f00feafcf0675cd47a48f83ae42b06d4, type: 3}
+  <ItemName>k__BackingField: "\u041D\u0430\u0437\u0430\u0434"
+  <Icon>k__BackingField: {fileID: 21300000, guid: 9587663c4d27e47b19a118aabaac4a08, type: 3}
