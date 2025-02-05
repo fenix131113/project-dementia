@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
@@ -13,6 +14,7 @@ namespace Core.Network.Menu
     {
         [SerializeField] private GameObject connectionLoaderPanel;
         [SerializeField] private TMP_InputField nicknameInputField;
+        [SerializeField] private Button exitGameButton;
 
         [Space(15)] [Header("Room")] [SerializeField]
         private GameObject roomPanel;
@@ -30,14 +32,21 @@ namespace Core.Network.Menu
         [SerializeField] private Button loadLevelButton;
 
         [Space(15)] [Header("Rooms list")] [SerializeField]
-        private RoomListItem roomsItemPrefab;
 
+        private float reloadRoomsListCooldown = 1.5f;
+        [SerializeField] private RoomListItem roomsItemPrefab;
         [SerializeField] private Transform roomsListContent;
+        [SerializeField] private GameObject roomsListPanel;
+        [SerializeField] private TMP_InputField roomFieldToConnect;
+        [SerializeField] private Button joinByRoomNameButton;
+        [SerializeField] private Button roomsListButton;
+        //[SerializeField] private Button reloadRoomsListButton;
 
+        private readonly TypedLobby _customLobby = new("defaultLobby", LobbyType.Default);
         private readonly List<RoomListItem> _spawnedFreeRooms = new();
         private readonly List<RoomListItem> _spawnedUsedRooms = new();
         private List<RoomInfo> _rooms;
-        private TypedLobby customLobby = new("customLobby", LobbyType.Default);
+        private Coroutine _reloadRoomsListCoroutine;
 
         private void Start()
         {
@@ -58,17 +67,20 @@ namespace Core.Network.Menu
         public override void OnConnectedToMaster()
         {
             connectionLoaderPanel.SetActive(false);
+            JoinLobby();
             PhotonNetwork.SerializationRate = 40;
             PhotonNetwork.SendRate = 80;
         }
 
         public override void OnJoinedLobby()
         {
+            connectionLoaderPanel.SetActive(false);
         }
 
         public void JoinLobby()
         {
-            PhotonNetwork.JoinLobby(customLobby);
+            PhotonNetwork.JoinLobby(_customLobby);
+            connectionLoaderPanel.SetActive(true);
         }
 
         public void SetNicknameByField()
@@ -127,15 +139,17 @@ namespace Core.Network.Menu
 
             roomPlayersText.text = "";
             roomNameLabel.text = $"Room: {room.Name}";
-            roomPlayerCountLabel.text = $"{PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}";
+            roomPlayerCountLabel.text =
+                $"{PhotonNetwork.CurrentRoom.PlayerCount}/{PhotonNetwork.CurrentRoom.MaxPlayers}";
 
             foreach (var playerPair in room.Players)
-                roomPlayersText.text += playerPair.Value.NickName + "\n";
+                roomPlayersText.text += " - " + playerPair.Value.NickName + "\n";
         }
 
         private void CheckRoomConditionsForPlayer()
         {
-            if(!PhotonNetwork.IsMasterClient || PhotonNetwork.CurrentRoom.PlayerCount != PhotonNetwork.CurrentRoom.MaxPlayers)
+            if (!PhotonNetwork.IsMasterClient ||
+                PhotonNetwork.CurrentRoom.PlayerCount != PhotonNetwork.CurrentRoom.MaxPlayers)
                 loadLevelButton.interactable = false;
             else
                 loadLevelButton.interactable = true;
@@ -153,7 +167,7 @@ namespace Core.Network.Menu
 
             PhotonNetwork.CreateRoom(roomNameField.text,
                 new RoomOptions { MaxPlayers = 2, IsVisible = publicRoomToggle.isOn, IsOpen = true },
-                customLobby);
+                _customLobby);
         }
 
         public void LeaveRoom() => PhotonNetwork.LeaveRoom();
@@ -198,6 +212,12 @@ namespace Core.Network.Menu
             }
         }
 
+        private void JoinRoomByName(string roomName)
+        {
+            if (!PhotonNetwork.JoinRoom(roomName)) 
+                Debug.LogWarning("This room doesn't exist or full");
+        }
+
         private RoomListItem CreateRoomListItem()
         {
             var spawned = Instantiate(roomsItemPrefab, roomsListContent);
@@ -229,24 +249,64 @@ namespace Core.Network.Menu
                 LoadScene();
         }
 
-        #endregion"
+        private void OnJoinRoomByNameButtonClick()
+        {
+            if (!string.IsNullOrEmpty(roomFieldToConnect.text))
+                JoinRoomByName(roomFieldToConnect.text);
+        }
+        
+        private void OnExitGameButtonClick() => Application.Quit();
+
+        private void OnRoomListButtonClick()
+        {
+            //if(!roomsListPanel.activeSelf && _reloadRoomsListCoroutine == null)
+                //JoinLobby();
+            
+            roomsListPanel.SetActive(!roomsListPanel.activeSelf);
+        }
+
+        private void OnReloadRoomsListButtonClick()
+        {
+            _reloadRoomsListCoroutine = StartCoroutine(ReloadRoomsListCooldown());
+            JoinLobby();
+        }
+
+        #endregion
 
         private void Bind()
         {
+            exitGameButton.onClick.AddListener(OnExitGameButtonClick);
             leftRoomButton.onClick.AddListener(OnLeftRoomButtonClick);
+            roomsListButton.onClick.AddListener(OnRoomListButtonClick);
             loadLevelButton.onClick.AddListener(OnLoadLevelButtonClick);
             createRoomButton.onClick.AddListener(OnCreateRoomButtonClick);
+            joinByRoomNameButton.onClick.AddListener(OnJoinRoomByNameButtonClick);
+            //reloadRoomsListButton.onClick.AddListener(OnReloadRoomsListButtonClick);
             acceptRoomCreationButton.onClick.AddListener(OnAcceptRoomCreateButtonClick);
             returnFromRoomCreationButton.onClick.AddListener(OnReturnFromRoomCreationButtonClick);
         }
 
         private void Expose()
         {
+            exitGameButton.onClick.RemoveAllListeners();
             leftRoomButton.onClick.RemoveAllListeners();
+            roomsListButton.onClick.RemoveAllListeners();
             loadLevelButton.onClick.RemoveAllListeners();
             createRoomButton.onClick.RemoveAllListeners();
+            joinByRoomNameButton.onClick.RemoveAllListeners();
+            //reloadRoomsListButton.onClick.RemoveAllListeners();
             acceptRoomCreationButton.onClick.RemoveAllListeners();
             returnFromRoomCreationButton.onClick.RemoveAllListeners();
+        }
+
+        private IEnumerator ReloadRoomsListCooldown()
+        {
+            //reloadRoomsListButton.interactable = false;
+            
+            yield return new WaitForSeconds(reloadRoomsListCooldown);
+            
+            //reloadRoomsListButton.interactable = true;
+            _reloadRoomsListCoroutine = null;
         }
     }
 }
