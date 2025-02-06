@@ -36,12 +36,6 @@ namespace InventorySystem.View
                 _startCellsPositions.Add(cell.rectTransform.position);
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.F))
-                Debug.Log(_itemSelector.SelectedItem.ItemName);
-        }
-
         private void OnDestroy() => Expose();
 
         private void MoveInventoryCells()
