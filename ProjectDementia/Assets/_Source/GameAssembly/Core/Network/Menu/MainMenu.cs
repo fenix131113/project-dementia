@@ -166,7 +166,7 @@ namespace Core.Network.Menu
                 return;
 
             PhotonNetwork.CreateRoom(roomNameField.text,
-                new RoomOptions { MaxPlayers = 1, IsVisible = publicRoomToggle.isOn, IsOpen = true },
+                new RoomOptions { MaxPlayers = 2, IsVisible = publicRoomToggle.isOn, IsOpen = true },
                 _customLobby);
         }
 
