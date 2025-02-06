@@ -7,7 +7,7 @@ using Photon.Pun;
 using UnityEngine;
 using VContainer;
 
-namespace Interactable.Custom
+namespace Interactable.Custom.ClickInteractions
 {
     public class PickableItem : AInteractableObject
     {

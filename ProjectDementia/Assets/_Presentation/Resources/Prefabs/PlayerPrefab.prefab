@@ -1064,7 +1064,7 @@ Camera:
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
-    m_Bits: 119
+    m_Bits: 247
   m_RenderingPath: -1
   m_TargetTexture: {fileID: 0}
   m_TargetDisplay: 0
@@ -1905,7 +1905,7 @@ GameObject:
   - component: {fileID: 3628699025022139203}
   - component: {fileID: -912416757804970584}
   - component: {fileID: 4665494465497488017}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Untagged
   m_Icon: {fileID: 0}

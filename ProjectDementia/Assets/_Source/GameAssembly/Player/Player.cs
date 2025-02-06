@@ -51,6 +51,9 @@ namespace Player
         {
             foreach (var obj in invisibleObjectsForOtherPlayer)
                 obj.SetActive(false);
+
+            Destroy(GetComponent<CapsuleCollider>());
+            Destroy(GetComponent<CharacterController>());
         }
 
         [PunRPC]
