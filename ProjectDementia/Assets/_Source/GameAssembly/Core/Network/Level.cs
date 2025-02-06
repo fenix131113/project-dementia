@@ -1,5 +1,7 @@
+using DG.Tweening;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using VContainer;
 using VContainer.Unity;
 
@@ -16,6 +18,19 @@ namespace Core.Network
         {
             _resolver = FindFirstObjectByType<LifetimeScope>().Container;
             SpawnPlayer();
+        }
+
+        public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
+        {
+            PhotonNetwork.LeaveRoom();
+        }
+
+        public override void OnLeftRoom()
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            DOTween.KillAll();
+            SceneManager.LoadScene(0);
         }
 
         private void SpawnPlayer()

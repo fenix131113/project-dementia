@@ -45,7 +45,10 @@ MonoBehaviour:
   - Interact
   - TakeItem
   - InjectSpawnedPlayer
-  - SendChatMessage
+  - Press
+  - CheckPassword
+  - AddPressedPlate
+  - ResetPassword
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
