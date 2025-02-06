@@ -6,19 +6,17 @@ using UnityEngine;
 
 namespace Levels._1
 {
+    [RequireComponent(typeof(PhotonNetwork))]
     public class PlatePasswordManager : MonoBehaviour
     {
         [SerializeField] private List<PasswordColorPlate> colorPlates;
         [SerializeField] private PhotonView netView;
-        [SerializeField] private GameObject[] deactivateGameObjectsAfterTrue;
+        [SerializeField] private Door[] doors;
 
         private int _pressedCounter;
         private readonly List<PasswordColorPlate> _pressedPlates = new();
 
-        private void Start()
-        {
-            Bind();
-        }
+        private void Start() => Bind();
 
         private void OnDestroy() => Expose();
 
@@ -45,8 +43,8 @@ namespace Levels._1
             foreach (var plate in colorPlates)
                 plate.BlockPlate();
 
-            foreach (var o in deactivateGameObjectsAfterTrue)
-                o.SetActive(false);
+            foreach (var o in doors)
+                o.OpenDoor();
         }
 
         [PunRPC]

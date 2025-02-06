@@ -17,7 +17,7 @@ namespace Interactable.Base
             if (!LayerService.CheckLayersEquality(other.gameObject.layer, interactableLayer))
                 return;
             
-            Press();
+            Press(other.gameObject);
         }
         
         private void OnTriggerExit(Collider other)
@@ -30,7 +30,7 @@ namespace Interactable.Base
 
         public void BlockPlate() => IsBlocked = true;
 
-        public virtual void Press()
+        public virtual void Press(GameObject initiator)
         {
             if(IsBlocked)
                 return;
