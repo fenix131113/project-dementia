@@ -1,82 +1,96 @@
+using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using Photon.Pun;
-using Player;
 
-public class PlayerMovements : MonoBehaviour
+namespace Player
 {
-    private Vector2 _moveDirection;
-    private bool isDead;
-    private CharacterController _characterController;
-    private Vector3 _velocity;
-    private float gravity = -9.81f;
-    private float _currentSpeed;
-    [SerializeField] private PhotonView netView;
-    [SerializeField] private PlayerStats _playerStats;
-
-    private void Awake()
+    public class PlayerMovements : MonoBehaviour
     {
-        _characterController = GetComponent<CharacterController>();
-    }
+        private const float GRAVITY = -9.81f;
+    
+        [SerializeField] private PhotonView netView;
+        [SerializeField] private PlayerStats playerStats;
+        
+        private CharacterController _characterController;
+        private Vector3 _velocity;
+        private Vector3 _moveDirection;
+        private float _currentSpeed;
+        private bool _isDead;
+        private bool _canMove = true;
 
-    private void Update()
-    {
-        if (!netView.IsMine) return;
-        MovePlayer();
-    }
-
-    public void OnMove(InputAction.CallbackContext context)
-    {
-        _moveDirection = context.ReadValue<Vector2>();
-    }
-
-    public void OnJump(InputAction.CallbackContext context)
-    {
-        if (context.performed && !isDead && _characterController.isGrounded)
+        private void Awake()
         {
-            Jump();
-        }
-    }
-
-    public void OnSprint(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            SetSprintState(true);
-        }
-        else if (context.canceled)
-        {
-            SetSprintState(false);
-        }
-    }
-
-    private void SetSprintState(bool isSprinting)
-    {
-        _currentSpeed = isSprinting ? _playerStats.SprintSpeed : _playerStats.Speed;
-    }
-
-    private void MovePlayer()
-    {
-        if (isDead) return;
-
-        var moveVector = transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.y));
-        _currentSpeed = _currentSpeed == 0 ? _playerStats.Speed : _currentSpeed;
-
-        if (_characterController.isGrounded)
-        {
-            _velocity.y = -1;
-        }
-        else
-        {
-            _velocity.y += gravity * Time.deltaTime;
+            _characterController = GetComponent<CharacterController>();
         }
 
-        _characterController.Move(moveVector * (_currentSpeed * Time.deltaTime));
-        _characterController.Move(_velocity * Time.deltaTime);
-    }
+        private void Update()
+        {
+            Debug.Log("false");
+            if (!netView.IsMine || !_canMove)
+                return;
+            Debug.Log("True");
+            
+            MovePlayer();
+        }
 
-    private void Jump()
-    {
-        _velocity.y = Mathf.Sqrt(-2f * gravity * _playerStats.JumpHeight);
+        public void SetMovementStatus(bool canMove) => _canMove = canMove;
+
+        public void OnMove(InputAction.CallbackContext context)
+        {
+            _moveDirection = context.ReadValue<Vector3>();
+        }
+
+        public void OnJump(InputAction.CallbackContext context)
+        {
+            if (context.performed && !_isDead && _characterController.isGrounded)
+            {
+                Jump();
+            }
+        }
+
+        public void OnSprint(InputAction.CallbackContext context)
+        {
+            if (context.performed)
+            {
+                SetSprintState(true);
+            }
+            else if (context.canceled)
+            {
+                SetSprintState(false);
+            }
+        }
+
+        private void SetSprintState(bool isSprinting)
+        {
+            _currentSpeed = isSprinting ? playerStats.SprintSpeed : playerStats.Speed;
+        }
+
+        private void MovePlayer()
+        {
+            if (_isDead)
+                return;
+            
+            Debug.Log(_moveDirection.ToString());
+
+            var moveVector = transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.z));
+            _currentSpeed = _currentSpeed == 0 ? playerStats.Speed : _currentSpeed;
+
+            if (_characterController.isGrounded)
+            {
+                _velocity.y = -1;
+            }
+            else
+            {
+                _velocity.y += GRAVITY * Time.deltaTime;
+            }
+
+            _characterController.Move(moveVector * (_currentSpeed * Time.deltaTime));
+            _characterController.Move(_velocity * Time.deltaTime);
+        }
+
+        private void Jump()
+        {
+            _velocity.y = Mathf.Sqrt(-2f * GRAVITY * playerStats.JumpHeight);
+        }
     }
 }

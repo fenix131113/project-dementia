@@ -1903,8 +1903,8 @@ GameObject:
   - component: {fileID: 1038925447063922686}
   - component: {fileID: -7002402334816066881}
   - component: {fileID: 3628699025022139203}
-  - component: {fileID: -912416757804970584}
   - component: {fileID: 4665494465497488017}
+  - component: {fileID: 4039329682909295379}
   m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -2047,31 +2047,6 @@ MonoBehaviour:
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-912416757804970584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7423423548461046355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a3f61b9fc91ef94ba4ba96d50da2ac4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerNickLabel: {fileID: 4362115062962264474}
-  walkSpeed: 4
-  runSpeed: 6
-  gravity: -9.81
-  sensitivity: 3
-  netView: {fileID: 3628699025022139203}
-  canMove: 1
-  canRotCam: 1
-  invisibleObjectsForMyPlayer:
-  - {fileID: 7328154100937129552}
-  - {fileID: 5707484690209291957}
-  invisibleObjectsForOtherPlayer:
-  - {fileID: 1121387619663629245}
 --- !u!143 &4665494465497488017
 CharacterController:
   m_ObjectHideFlags: 0
@@ -2097,6 +2072,31 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &4039329682909295379
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423423548461046355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a3f61b9fc91ef94ba4ba96d50da2ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNickLabel: {fileID: 4362115062962264474}
+  walkSpeed: 4
+  runSpeed: 6
+  gravity: -9.81
+  sensitivity: 3
+  netView: {fileID: 3628699025022139203}
+  canMove: 1
+  canRotCam: 1
+  invisibleObjectsForMyPlayer:
+  - {fileID: 7328154100937129552}
+  - {fileID: 5707484690209291957}
+  invisibleObjectsForOtherPlayer:
+  - {fileID: 1121387619663629245}
 --- !u!1 &8124127411992025039
 GameObject:
   m_ObjectHideFlags: 0
