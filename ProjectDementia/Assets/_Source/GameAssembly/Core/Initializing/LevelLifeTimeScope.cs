@@ -14,6 +14,8 @@ namespace Core.Initializing
         {
             builder.RegisterEntryPoint<LevelBootstrapper>();
 
+            builder.Register<PlayerObjects>(Lifetime.Singleton);
+
             #region ResouresesLoading
 
             var dataRepository = new DataRepository<ScriptableObject>();
