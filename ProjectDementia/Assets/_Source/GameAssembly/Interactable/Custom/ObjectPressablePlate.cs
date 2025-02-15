@@ -2,17 +2,17 @@
 using Interactable.Base;
 using Photon.Pun;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace Interactable.Custom
 {
-    public class PasswordColorPlate : APressablePlate
+    public class ObjectPressablePlate : APressablePlate
     {
-        [field: SerializeField] public InfoScreen InfoScreen { get; private set; }
+        [SerializeField] private UnityEvent onPressedEvent;
 
-        public event Action<PasswordColorPlate> OnPressed;
-        public event Action<PasswordColorPlate, GameObject> OnPressedOwner;
-
-        private bool _pressed;
+        public event Action<ObjectPressablePlate> OnPressed;
+        public event Action<ObjectPressablePlate, GameObject> OnPressedOwner;
+        
         private Action _customPressAction;
         
         public void RPC_ResetPlate() => netView.RPC(nameof(ResetPlate), RpcTarget.AllBuffered);
@@ -23,20 +23,15 @@ namespace Interactable.Custom
         {
             base.Press(initiator);
             
-            if(_pressed)
+            if(Pressed)
                 return;
             
             _customPressAction?.Invoke();
-            _pressed = true;
+            Pressed = true;
             
+            onPressedEvent?.Invoke();
             OnPressed?.Invoke(this);
             OnPressedOwner?.Invoke(this, initiator);
-        }
-
-        public void ResetPlate()
-        {
-            _pressed = false;
-            InfoScreen?.ResetScreen();
         }
     }
 }

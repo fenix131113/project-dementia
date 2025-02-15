@@ -10,6 +10,7 @@ namespace Interactable.Base
         [SerializeField] protected LayerMask interactableLayer;
         [SerializeField] protected PhotonView netView;
 
+        protected bool Pressed;
         protected bool IsBlocked;
 
         private void OnTriggerEnter(Collider other)
@@ -40,6 +41,11 @@ namespace Interactable.Base
         {
             if(IsBlocked)
                 return;
+        }
+        
+        public virtual void ResetPlate()
+        {
+            Pressed = false;
         }
     }
 }
