@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Interactable.Custom;
 using Photon.Pun;
@@ -9,12 +10,12 @@ namespace Levels._1
     [RequireComponent(typeof(PhotonNetwork))]
     public class PlatePasswordManager : MonoBehaviour
     {
-        [SerializeField] private List<PasswordColorPlate> colorPlates;
+        [SerializeField] private List<PlateItems> colorPlates;
         [SerializeField] private PhotonView netView;
         [SerializeField] private Door[] doors;
 
         private int _pressedCounter;
-        private readonly List<PasswordColorPlate> _pressedPlates = new();
+        private readonly List<ObjectPressablePlate> _pressedPlates = new();
 
         private void Start() => Bind();
 
@@ -32,7 +33,7 @@ namespace Levels._1
             if (_pressedPlates.Count != colorPlates.Count)
                 return;
 
-            if (colorPlates.Where((plate, index) => plate != _pressedPlates[index]).Any())
+            if (colorPlates.Where((plate, index) => plate.PressablePlate != _pressedPlates[index]).Any())
                 if (_pressedPlates.Count == colorPlates.Count)
                 {
                     ResetPassword();
@@ -41,7 +42,7 @@ namespace Levels._1
 
             //If password successful
             foreach (var plate in colorPlates)
-                plate.BlockPlate();
+                plate.PressablePlate.BlockPlate();
 
             foreach (var o in doors)
                 o.OpenDoor();
@@ -54,7 +55,7 @@ namespace Levels._1
             _pressedPlates.Clear();
 
             foreach (var plate in colorPlates)
-                plate.ResetPlate();
+                plate.PressablePlate.ResetPlate();
         }
 
         [PunRPC]
@@ -62,25 +63,32 @@ namespace Levels._1
         {
             _pressedCounter++;
             colorPlates[plateIndex].InfoScreen.DrawText(_pressedCounter.ToString());
-            _pressedPlates.Add(colorPlates[plateIndex]);
+            _pressedPlates.Add(colorPlates[plateIndex].PressablePlate);
         }
 
-        private void OnPlatePressed(PasswordColorPlate passwordPlate)
+        private void OnPlatePressed(ObjectPressablePlate passwordPressablePlate)
         {
-            RPC_AddPressedPlate(colorPlates.IndexOf(passwordPlate));
+            RPC_AddPressedPlate(colorPlates.FindIndex(x => x.PressablePlate == passwordPressablePlate));
             RPC_CheckPassword();
         }
 
         private void Bind()
         {
             foreach (var plate in colorPlates)
-                plate.OnPressed += OnPlatePressed;
+                plate.PressablePlate.OnPressed += OnPlatePressed;
         }
 
         private void Expose()
         {
             foreach (var plate in colorPlates)
-                plate.OnPressed -= OnPlatePressed;
+                plate.PressablePlate.OnPressed -= OnPlatePressed;
+        }
+
+        [Serializable]
+        public class PlateItems
+        {
+            [field: SerializeField] public ObjectPressablePlate PressablePlate { get; set; }
+            [field: SerializeField] public InfoScreen InfoScreen { get; set; }
         }
     }
 }

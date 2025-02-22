@@ -13,9 +13,9 @@ namespace Levels._1
         [SerializeField] private PhotonView netView;
         [SerializeField] private Transform teleportPoint;
         [SerializeField] private Door[] doors;
-        [SerializeField] private List<PasswordColorPlate> teleportPlates;
+        [SerializeField] private List<ObjectPressablePlate> teleportPlates;
         [SerializeField] private List<CorrectPlateItem> correctPlates;
-        [SerializeField] private List<PasswordColorPlate> defaultPlates;
+        [SerializeField] private List<ObjectPressablePlate> defaultPlates;
 
         private int _counter;
 
@@ -32,8 +32,8 @@ namespace Levels._1
             teleportPlates.ForEach(x => x.ResetPlate());
             correctPlates.ForEach(x =>
             {
-                x.Plate.InfoScreen.ResetScreen();
-                x.Plate.ResetPlate();
+                x.InfoScreen.ResetScreen();
+                x.PressablePlate.ResetPlate();
             });
             defaultPlates.ForEach(x => x.ResetPlate());
         }
@@ -44,7 +44,7 @@ namespace Levels._1
             if (_counter == 4)
             {
                 teleportPlates.ForEach(x => x.BlockPlate());
-                correctPlates.ForEach(x => x.Plate.BlockPlate());
+                correctPlates.ForEach(x => x.PressablePlate.BlockPlate());
                 defaultPlates.ForEach(x => x.BlockPlate());
 
                 foreach (var door in doors)
@@ -52,15 +52,15 @@ namespace Levels._1
             }
         }
 
-        private void ResetWithPlayer(PasswordColorPlate plate, GameObject player)
+        private void ResetWithPlayer(ObjectPressablePlate pressablePlate, GameObject player)
         {
             RPC_ResetGame();
             player.GetComponent<PlayerController>().Teleport(teleportPoint.position);
         }
 
-        private void OnCorrectPlatePressed(PasswordColorPlate plate)
+        private void OnCorrectPressablePlatePressed(ObjectPressablePlate pressablePlate)
         {
-            var plateIndex = correctPlates.IndexOf(correctPlates.First(x => x.Plate == plate));
+            var plateIndex = correctPlates.IndexOf(correctPlates.First(x => x.PressablePlate == pressablePlate));
             netView.RPC(nameof(SetScreenData), RpcTarget.All, plateIndex,
                 (int)correctPlates[plateIndex].ActiveColor.r, (int)correctPlates[plateIndex].ActiveColor.g,
                 (int)correctPlates[plateIndex].ActiveColor.b);
@@ -72,27 +72,28 @@ namespace Levels._1
         private void SetScreenData(int screenIndex, int r, int g, int b)
         {
             _counter++;
-            correctPlates[screenIndex].Plate.InfoScreen.SetColor(r, g, b);
-            correctPlates[screenIndex].Plate.InfoScreen.DrawText($"{_counter}/4");
+            correctPlates[screenIndex].InfoScreen.SetColor(r, g, b);
+            correctPlates[screenIndex].InfoScreen.DrawText($"{_counter}/4");
         }
 
         private void Bind()
         {
             teleportPlates.ForEach(x => x.OnPressedOwner += ResetWithPlayer);
-            correctPlates.ForEach(x => x.Plate.OnPressed += OnCorrectPlatePressed);
+            correctPlates.ForEach(x => x.PressablePlate.OnPressed += OnCorrectPressablePlatePressed);
         }
 
         private void Expose()
         {
             teleportPlates.ForEach(x => x.OnPressedOwner -= ResetWithPlayer);
-            correctPlates.ForEach(x => x.Plate.OnPressed -= OnCorrectPlatePressed);
+            correctPlates.ForEach(x => x.PressablePlate.OnPressed -= OnCorrectPressablePlatePressed);
         }
     }
 
     [Serializable]
     public class CorrectPlateItem
     {
-        [field: SerializeField] public PasswordColorPlate Plate { get; set; }
+        [field: SerializeField] public ObjectPressablePlate PressablePlate { get; set; }
+        [field: SerializeField] public InfoScreen InfoScreen { get; set; }
         [field: SerializeField] public Color ActiveColor { get; set; }
     }
 }

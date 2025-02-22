@@ -1,3 +1,4 @@
+using Core.Initializing;
 using DG.Tweening;
 using Photon.Pun;
 using UnityEngine;
@@ -13,8 +14,12 @@ namespace Core.Network
         [SerializeField] private Transform secondSpawnPoint;
 
         private IObjectResolver _resolver;
+        private PlayerObjects _playerObjects;
 
-        private void Start()
+        [Inject]
+        private void Construct(PlayerObjects playerObjects) => _playerObjects = playerObjects;
+
+        private void Awake()
         {
             _resolver = FindFirstObjectByType<LifetimeScope>().Container;
             SpawnPlayer();
@@ -41,6 +46,8 @@ namespace Core.Network
                 selectedSpawn.position, Quaternion.identity);
             photonView.RPC(nameof(InjectSpawnedPlayer), RpcTarget.AllBuffered,
                 spawned.GetComponent<PhotonView>().ViewID);
+            
+            _playerObjects.SetCurrentPlayerObject(spawned);
             
             spawned.GetComponent<PhotonView>()
                 .RPC("SetNickname", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName);
