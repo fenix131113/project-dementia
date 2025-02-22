@@ -17,6 +17,7 @@ namespace Player
         [SerializeField] private float rayDistance;
 
         private float _startSize;
+        private bool _detectedObject;
         private Tween _growTween;
         private Tween _backTween;
         private Tween _textAppearTween;
@@ -34,25 +35,31 @@ namespace Player
             {
                 if (_backTween != null && _backTween.IsActive())
                     return;
-                
-                _backTween = centerPoint.DOSizeDelta(new Vector2(_startSize, _startSize), animCenterPointTime);
-                if(!_growTween.IsActive())
+
+                if (_detectedObject)
+                    _backTween = centerPoint.DOSizeDelta(new Vector2(_startSize, _startSize), animCenterPointTime);
+                if (!_growTween.IsActive())
                     _growTween.Kill();
-                
+
                 if (_textDisappearTween != null && _textDisappearTween.IsActive())
                     return;
                 
-                _textDisappearTween = interactHelper.DOFade(0f, animHelperTextTime);
-                if(!_textAppearTween.IsActive())
+                if (_detectedObject)
+                    _textDisappearTween = interactHelper.DOFade(0f, animHelperTextTime);
+                
+                if (!_textAppearTween.IsActive())
                     _textAppearTween.Kill();
 
+                _detectedObject = false;
                 return;
             }
 
+            _detectedObject = true;
+
             // If raycast object with given layer
-            
+
             hit.transform.TryGetComponent<AInteractableObject>(out var interactable);
-            
+
             interactHelper.text = interactable?.InteractText;
 
             var growScale = _startSize * centerPointMultiplier;
@@ -60,14 +67,14 @@ namespace Player
             if (_growTween == null || !_growTween.IsActive())
             {
                 _growTween = centerPoint.DOSizeDelta(new Vector2(growScale, growScale), animCenterPointTime);
-                if(!_backTween.IsActive())
+                if (!_backTween.IsActive())
                     _backTween.Kill();
             }
 
             if (_textAppearTween == null || !_textAppearTween.IsActive())
             {
                 _textAppearTween = interactHelper.DOFade(1f, animHelperTextTime);
-                if(!_textDisappearTween.IsActive())
+                if (!_textDisappearTween.IsActive())
                     _textDisappearTween.Kill();
             }
 

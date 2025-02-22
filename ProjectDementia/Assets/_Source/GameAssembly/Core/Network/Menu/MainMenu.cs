@@ -19,6 +19,7 @@ namespace Core.Network.Menu
         [Space(15)] [Header("Room")] [SerializeField]
         private GameObject roomPanel;
 
+        [SerializeField] private int loadLevelIndex;
         [SerializeField] private GameObject createRoomPanel;
         [SerializeField] private TMP_Text roomPlayersText;
         [SerializeField] private TMP_Text roomNameLabel;
@@ -32,8 +33,8 @@ namespace Core.Network.Menu
         [SerializeField] private Button loadLevelButton;
 
         [Space(15)] [Header("Rooms list")] [SerializeField]
-
         private float reloadRoomsListCooldown = 1.5f;
+
         [SerializeField] private RoomListItem roomsItemPrefab;
         [SerializeField] private Transform roomsListContent;
         [SerializeField] private GameObject roomsListPanel;
@@ -157,7 +158,7 @@ namespace Core.Network.Menu
 
         private void LoadScene()
         {
-            PhotonNetwork.LoadLevel(1);
+            PhotonNetwork.LoadLevel(loadLevelIndex);
         }
 
         private void CreateRoom()
@@ -214,7 +215,7 @@ namespace Core.Network.Menu
 
         private void JoinRoomByName(string roomName)
         {
-            if (!PhotonNetwork.JoinRoom(roomName)) 
+            if (!PhotonNetwork.JoinRoom(roomName))
                 Debug.LogWarning("This room doesn't exist or full");
         }
 
@@ -254,14 +255,14 @@ namespace Core.Network.Menu
             if (!string.IsNullOrEmpty(roomFieldToConnect.text))
                 JoinRoomByName(roomFieldToConnect.text);
         }
-        
+
         private void OnExitGameButtonClick() => Application.Quit();
 
         private void OnRoomListButtonClick()
         {
             //if(!roomsListPanel.activeSelf && _reloadRoomsListCoroutine == null)
-                //JoinLobby();
-            
+            //JoinLobby();
+
             roomsListPanel.SetActive(!roomsListPanel.activeSelf);
         }
 
@@ -302,9 +303,9 @@ namespace Core.Network.Menu
         private IEnumerator ReloadRoomsListCooldown()
         {
             //reloadRoomsListButton.interactable = false;
-            
+
             yield return new WaitForSeconds(reloadRoomsListCooldown);
-            
+
             //reloadRoomsListButton.interactable = true;
             _reloadRoomsListCoroutine = null;
         }

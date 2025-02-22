@@ -23,6 +23,7 @@ namespace Core.Network
         {
             _resolver = FindFirstObjectByType<LifetimeScope>().Container;
             SpawnPlayer();
+            DOTween.KillAll();
         }
 
         public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
