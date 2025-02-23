@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 3721656407524818016}
   - component: {fileID: 910493985771425659}
   - component: {fileID: 6694282022540548168}
+  - component: {fileID: 7995448757570621069}
   m_Layer: 0
   m_Name: Lamp
   m_TagString: Untagged
@@ -245,8 +246,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e77ef7367c144721a74ace63e110bdd0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  netView: {fileID: 7995448757570621069}
   startState: 1
   lampLight: {fileID: 8814784544426668492}
   lampRenderer: {fileID: 3721656407524818016}
   activeMaterial: {fileID: 0}
   inactiveMaterial: {fileID: 0}
+--- !u!114 &7995448757570621069
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6412954220801745683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0

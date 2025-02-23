@@ -57,6 +57,11 @@ MonoBehaviour:
   - SpawnPlayer
   - RPC_SetPlayerReady
   - CheckLoadLevelConditions
+  - OpenElevator
+  - RPC_ElevatorEnterStateUpdate
+  - RPC_ElevatorExitStateUpdate
+  - CheckPlayersInElevator
+  - CloseElevator
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
