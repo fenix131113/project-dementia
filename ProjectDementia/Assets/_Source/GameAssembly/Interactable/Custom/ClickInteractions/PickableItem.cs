@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Interactable.Base;
 using InventorySystem;
 using ItemsSystem;
@@ -13,6 +14,8 @@ namespace Interactable.Custom.ClickInteractions
     {
         [SerializeField] private ItemSO item;
 
+        public List<string> customItemData;
+
         public override event Action OnInteract;
 
         private PlayersInventory _playersInventory;
@@ -25,14 +28,26 @@ namespace Interactable.Custom.ClickInteractions
             _itemsContainer = itemsContainer;
         }
 
-        public override void Interact() => PhotonView.RPC(nameof(TakeItem), RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.ActorNumber);
+        /// <summary>
+        /// Replace custom data with given
+        /// </summary>
+        public void InitCustomData(List<string> customData) =>
+            PhotonView.RPC(nameof(InitCustomData_RPC), RpcTarget.All, customData);
+
+        [PunRPC]
+        private void InitCustomData_RPC(List<string> customData) => customItemData = customData;
+
+        public override void Interact() =>
+            PhotonView.RPC(nameof(TakeItem), RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
 
         [PunRPC]
         private void TakeItem(int actorNumber)
         {
-            _playersInventory.GetPlayerInventory(PhotonNetwork.PlayerList[0].Get(actorNumber)).AddItem(_itemsContainer.GetItemBySO(item));
-            OnInteract?.Invoke();
+            _playersInventory.GetPlayerInventory(PhotonNetwork.PlayerList[0].Get(actorNumber))
+                .AddItem(_itemsContainer.GetItemBySO(item), customItemData);
+            
             gameObject.SetActive(false);
+            OnInteract?.Invoke();
         }
     }
 }

@@ -1,31 +1,36 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ItemsSystem;
 
 namespace InventorySystem
 {
     public class Inventory
     {
-        public IReadOnlyList<Item> Items => _items.AsReadOnly();
-        private readonly List<Item> _items = new();
+        public IReadOnlyList<InventoryItem> Items => _items.AsReadOnly();
+        private readonly List<InventoryItem> _items = new();
 
-        public event Action<Item> OnItemAdded;
-        public event Action<Item> OnItemRemoved;
+        public event Action<InventoryItem> OnItemAdded;
+        public event Action<InventoryItem> OnItemRemoved;
 
-        public void AddItem(Item item)
+        public void AddItem(Item item, List<string> customData = null)
         {
-            _items.Add(item);
-            OnItemAdded?.Invoke(item);
+            var invItem = new InventoryItem(item, customData);
+            _items.Add(invItem);
+            OnItemAdded?.Invoke(invItem);
         }
 
         public bool TryRemoveItem(Item item)
         {
-            if (!_items.Contains(item))
+            if (!IsItemInInventory(item))
                 return false;
 
-            _items.Remove(item);
-            OnItemRemoved?.Invoke(item);
+            var toRemove = _items.First(x => x.Item == item);
+            _items.Remove(toRemove);
+            OnItemRemoved?.Invoke(toRemove);
             return true;
         }
+
+        public bool IsItemInInventory(Item item) => _items.FirstOrDefault(x => x.Item == item) != null;
     }
 }

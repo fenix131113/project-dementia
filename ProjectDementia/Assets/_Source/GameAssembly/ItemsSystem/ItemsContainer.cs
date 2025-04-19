@@ -24,7 +24,7 @@ namespace ItemsSystem
 
         public Item GetItemByID(int id) => _itemsPair.First(item => item.Value.ID == id).Value;
 
-        public void GenerateItems()
+        public void GenerateItems() // Check if generate items provides same id's on both the clients
         {
             _itemsPair.Clear();
             

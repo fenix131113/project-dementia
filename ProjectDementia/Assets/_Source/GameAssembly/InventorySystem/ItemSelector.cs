@@ -10,7 +10,7 @@ namespace InventorySystem
 {
     public class ItemSelector : IStartable
     {
-        public Item SelectedItem { get; private set; }
+        public InventoryItem SelectedItem { get; private set; }
         public int SelectedItemInventoryIndex { get; private set; }
         public InventorySelectionChangeSide LastChangeSide { get; private set; }
 
@@ -61,7 +61,7 @@ namespace InventorySystem
             OnSelectedItemChanged?.Invoke();
         }
 
-        private void OnItemRemovedFromInventory(Item item)
+        private void OnItemRemovedFromInventory(InventoryItem item)
         {
             if (_inventory.Items.Count > 0 && SelectedItemInventoryIndex > _inventory.Items.Count - 1)
             {
@@ -76,14 +76,14 @@ namespace InventorySystem
             }
         }
 
-        private void OnItemAddedFromInventory(Item item)
+        private void OnItemAddedFromInventory(InventoryItem item)
         {
-            if (SelectedItem == null)
-            {
-                SelectedItem = item;
-                SelectedItemInventoryIndex = 0;
-                OnSelectedItemFirstTimeAdded?.Invoke();
-            }
+            if (SelectedItem != null)
+                return;
+            
+            SelectedItem = item;
+            SelectedItemInventoryIndex = 0;
+            OnSelectedItemFirstTimeAdded?.Invoke();
         }
 
         private void Bind()

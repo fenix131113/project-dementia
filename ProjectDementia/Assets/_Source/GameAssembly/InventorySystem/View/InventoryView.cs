@@ -49,7 +49,7 @@ namespace InventorySystem.View
 
         private void DrawVisibleCells()
         {
-            GetCentralCell().sprite = _itemSelector.SelectedItem.Icon;
+            GetCentralCell().sprite = _itemSelector.SelectedItem.Item.Icon;
             itemsCells[GetCentralCellIndex() - 1].sprite = GetInventoryItemBySelectedOffset(-1).Icon;
             itemsCells[GetCentralCellIndex() + 1].sprite = GetInventoryItemBySelectedOffset(1).Icon;
         }
@@ -132,13 +132,13 @@ namespace InventorySystem.View
             if (newIndex < 0)
                 newIndex += _inventory.Items.Count;
 
-            return _inventory.Items[newIndex];
+            return _inventory.Items[newIndex].Item;
         }
 
         private Image GetCentralCell() => itemsCells[GetCentralCellIndex()];
         private int GetCentralCellIndex() => itemsCells.Count / 2;
 
-        private void OnInventoryItemAdded(Item item)
+        private void OnInventoryItemAdded(InventoryItem item)
         {
             if (_itemSelector.SelectedItem == null)
                 return;
@@ -146,7 +146,7 @@ namespace InventorySystem.View
             DrawVisibleCells();
         }
 
-        private void OnInventoryItemRemoved(Item item)
+        private void OnInventoryItemRemoved(InventoryItem item)
         {
             if (_itemSelector.SelectedItem == null)
                 return;

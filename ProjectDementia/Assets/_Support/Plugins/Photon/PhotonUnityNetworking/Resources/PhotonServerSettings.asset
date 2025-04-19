@@ -62,6 +62,8 @@ MonoBehaviour:
   - RPC_ElevatorExitStateUpdate
   - CheckPlayersInElevator
   - CloseElevator
+  - InitCustomData
+  - InitCustomData_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

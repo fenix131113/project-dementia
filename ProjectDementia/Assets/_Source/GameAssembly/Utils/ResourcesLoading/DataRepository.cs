@@ -23,14 +23,8 @@ namespace Utils.ResourcesLoading
                 value.Remove(item);
         }
 
-        public List<TR> GetItem<TR>() where TR : class
-        {
-            return (from so in _repository[typeof(TR)] select so as TR).ToList();
-        }
+        public List<TR> GetItem<TR>() where TR : class => (from so in _repository[typeof(TR)] select so as TR).ToList();
 
-        public int GetCount()
-        {
-            return _repository.Count;
-        }
+        public int GetCount() => _repository.Count;
     }
 }
