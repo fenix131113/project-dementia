@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using DG.Tweening;
 using InventorySystem.Data;
 using ItemsSystem;
@@ -20,7 +21,7 @@ namespace InventorySystem.View
         private ItemSelector _itemSelector;
         private readonly List<Vector3> _startCellsPositions = new();
         private readonly List<Tween> _tweens = new();
-        
+
         [Inject]
         private void Construct(PlayersInventory playersInventory, ItemSelector itemSelector)
         {
@@ -47,6 +48,12 @@ namespace InventorySystem.View
                 MoveCellsLeft();
         }
 
+        private void ClearAllCellsIcons()
+        {
+            foreach (var cell in itemsCells)
+                cell.sprite = null;
+        }
+
         private void DrawVisibleCells()
         {
             GetCentralCell().sprite = _itemSelector.SelectedItem.Item.Icon;
@@ -59,12 +66,12 @@ namespace InventorySystem.View
             itemsCells[GetCentralCellIndex() - 2].sprite = GetInventoryItemBySelectedOffset(-2).Icon;
             itemsCells[GetCentralCellIndex() + 2].sprite = GetInventoryItemBySelectedOffset(2).Icon;
         }
-        
+
         private void MoveCellsRight()
         {
             if (_tweens.Count > 0)
                 _tweens.ForEach(t => t.Kill());
-            
+
             GetCentralCell().rectTransform.DOSizeDelta(Vector2.one * unselectedSize, animationDuration);
 
             var newItemsCells = new List<Image> { itemsCells[^1] };
@@ -85,6 +92,7 @@ namespace InventorySystem.View
                     tween.onComplete = () => _tweens.Remove(tween);
                 }
             }
+
             itemsCells = newItemsCells;
 
             GetCentralCell().rectTransform.DOSizeDelta(Vector2.one * selectedSize, animationDuration);
@@ -116,12 +124,12 @@ namespace InventorySystem.View
                     tween.onComplete = () => _tweens.Remove(tween);
                 }
             }
-            
+
             itemsCells = newItemsCells;
 
             GetCentralCell().rectTransform.DOSizeDelta(Vector2.one * selectedSize, animationDuration);
         }
-        
+
         private Item GetInventoryItemBySelectedOffset(int offset)
         {
             if (_inventory.Items.Count == 0)
@@ -142,16 +150,16 @@ namespace InventorySystem.View
         {
             if (_itemSelector.SelectedItem == null)
                 return;
-            
+
             DrawVisibleCells();
         }
 
-        private void OnInventoryItemRemoved(InventoryItem item)
+        private void OnSelectedItemNativeChanged()
         {
-            if (_itemSelector.SelectedItem == null)
-                return;
-            
-            DrawVisibleCells();
+            if (_itemSelector.SelectedItem != null)
+                DrawVisibleCells();
+            else
+                ClearAllCellsIcons();
         }
 
         private void OnFirstItemAdded()
@@ -161,20 +169,20 @@ namespace InventorySystem.View
 
         private void Bind()
         {
-            _itemSelector.OnSelectedItemChanged += MoveInventoryCells;
+            _itemSelector.OnSelectedItemChangedScroll += MoveInventoryCells;
             _itemSelector.OnSelectedItemFirstTimeAdded += OnFirstItemAdded;
             _itemSelector.OnBeforeSelectedItemChanged += DrawInvisibleCells;
+            _itemSelector.OnSelectedItemChangedNative += OnSelectedItemNativeChanged;
             _inventory.OnItemAdded += OnInventoryItemAdded;
-            _inventory.OnItemRemoved += OnInventoryItemRemoved;
         }
 
         private void Expose()
         {
-            _itemSelector.OnSelectedItemChanged -= MoveInventoryCells;
+            _itemSelector.OnSelectedItemChangedScroll -= MoveInventoryCells;
             _itemSelector.OnSelectedItemFirstTimeAdded -= OnFirstItemAdded;
             _itemSelector.OnBeforeSelectedItemChanged -= DrawInvisibleCells;
+            _itemSelector.OnSelectedItemChangedNative -= OnSelectedItemNativeChanged;
             _inventory.OnItemAdded -= OnInventoryItemAdded;
-            _inventory.OnItemRemoved -= OnInventoryItemRemoved;
         }
     }
 }

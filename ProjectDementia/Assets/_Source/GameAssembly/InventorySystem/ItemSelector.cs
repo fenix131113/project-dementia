@@ -17,7 +17,8 @@ namespace InventorySystem
         private readonly Inventory _inventory;
 
         public event Action OnBeforeSelectedItemChanged;
-        public event Action OnSelectedItemChanged;
+        public event Action OnSelectedItemChangedScroll;
+        public event Action OnSelectedItemChangedNative;
         public event Action OnSelectedItemFirstTimeAdded;
 
         [Inject]
@@ -43,7 +44,7 @@ namespace InventorySystem
             SelectedItem = _inventory.Items[SelectedItemInventoryIndex];
 
             LastChangeSide = InventorySelectionChangeSide.RIGHT;
-            OnSelectedItemChanged?.Invoke();
+            OnSelectedItemChangedScroll?.Invoke();
         }
 
         public void SelectItemPrevious()
@@ -58,12 +59,12 @@ namespace InventorySystem
             SelectedItem = _inventory.Items[SelectedItemInventoryIndex];
 
             LastChangeSide = InventorySelectionChangeSide.LEFT;
-            OnSelectedItemChanged?.Invoke();
+            OnSelectedItemChangedScroll?.Invoke();
         }
 
         private void OnItemRemovedFromInventory(InventoryItem item)
         {
-            if (_inventory.Items.Count > 0 && SelectedItemInventoryIndex > _inventory.Items.Count - 1)
+            if (_inventory.Items.Count > 0)
             {
                 SelectedItemInventoryIndex = _inventory.Items.Count - 1;
                 SelectedItem = _inventory.Items[SelectedItemInventoryIndex];
@@ -72,8 +73,9 @@ namespace InventorySystem
             {
                 SelectedItem = null;
                 SelectedItemInventoryIndex = -1;
-                OnSelectedItemChanged?.Invoke();
             }
+
+            OnSelectedItemChangedNative?.Invoke();
         }
 
         private void OnItemAddedFromInventory(InventoryItem item)

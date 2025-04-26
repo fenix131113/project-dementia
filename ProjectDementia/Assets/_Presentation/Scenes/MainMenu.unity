@@ -4724,6 +4724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d14c5e8b5d9241518de3addccc3c5700, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxPlayers: 1
   connectionLoaderPanel: {fileID: 1081033330}
   nicknameInputField: {fileID: 638904450}
   exitGameButton: {fileID: 896779361}

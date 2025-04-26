@@ -12,11 +12,23 @@ namespace Interactable.Base
         [field: SerializeField] public PhotonView PhotonView { get; private set; }
         [SerializeField] protected UnityEvent onInteractEvent;
 
+        public bool CanInteract { get; private set; } = true;
+
         public abstract event Action OnInteract;
 
-        public void RPC_Interact(RpcTarget target) => PhotonView.RPC(nameof(Interact), target);
+        //public void RPC_Interact(RpcTarget target) => PhotonView.RPC(nameof(Interact), target);
 
         [PunRPC]
-        public abstract void Interact();
+        public virtual void Interact()
+        {
+            if (!CanInteract)
+                return;
+        }
+
+        public void SetInteractable_RPC(bool canInteract) =>
+            PhotonView.RPC(nameof(SetInteractable_RPC), RpcTarget.All, canInteract);
+
+        [PunRPC]
+        public void SetInteractable(bool canInteract) => CanInteract = canInteract;
     }
 }

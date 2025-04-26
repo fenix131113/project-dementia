@@ -64,6 +64,10 @@ MonoBehaviour:
   - CloseElevator
   - InitCustomData
   - InitCustomData_RPC
+  - GiveItemToPlayer
+  - SetCheckAbility
+  - CheckItem_RPC
+  - SetInteractable
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -28,10 +28,12 @@ namespace Player
             _startSize = centerPoint.sizeDelta.x;
         }
 
-        public void Update()
+        public void Update() => StartRay();
+
+        private void StartRay()
         {
-            if (!Physics.Raycast(transform.position, transform.forward, out var hit, rayDistance,
-                    interactableLayer))
+            if (!Physics.Raycast(transform.position, transform.forward, out var hit, rayDistance) ||
+                !hit.transform.TryGetComponent<AInteractableObject>(out var interactable) || !interactable.CanInteract)
             {
                 if (_backTween != null && _backTween.IsActive())
                     return;
@@ -43,10 +45,10 @@ namespace Player
 
                 if (_textDisappearTween != null && _textDisappearTween.IsActive())
                     return;
-                
+
                 if (_detectedObject)
                     _textDisappearTween = interactHelper.DOFade(0f, animHelperTextTime);
-                
+
                 if (!_textAppearTween.IsActive())
                     _textAppearTween.Kill();
 
@@ -58,9 +60,10 @@ namespace Player
 
             // If raycast object with given layer
 
-            hit.transform.TryGetComponent<AInteractableObject>(out var interactable);
+            if (!interactable.CanInteract)
+                return;
 
-            interactHelper.text = interactable?.InteractText;
+            interactHelper.text = interactable.InteractText;
 
             var growScale = _startSize * centerPointMultiplier;
 
@@ -83,7 +86,7 @@ namespace Player
 
             if (hit.transform.gameObject &&
                 LayerService.CheckLayersEquality(hit.transform.gameObject.layer, interactableLayer))
-                interactable?.Interact();
+                interactable.Interact();
         }
     }
 }

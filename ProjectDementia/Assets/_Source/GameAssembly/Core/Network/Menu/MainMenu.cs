@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using Photon.Pun;
 using Photon.Realtime;
@@ -12,7 +11,8 @@ namespace Core.Network.Menu
 {
     public class MainMenu : MonoBehaviourPunCallbacks
     {
-        [SerializeField] private GameObject connectionLoaderPanel;
+        [SerializeField] private int maxPlayers = 2;
+        [Space(15)] [SerializeField] private GameObject connectionLoaderPanel;
         [SerializeField] private TMP_InputField nicknameInputField;
         [SerializeField] private Button exitGameButton;
 
@@ -167,7 +167,7 @@ namespace Core.Network.Menu
                 return;
 
             PhotonNetwork.CreateRoom(roomNameField.text,
-                new RoomOptions { MaxPlayers = 2, IsVisible = publicRoomToggle.isOn, IsOpen = true },
+                new RoomOptions { MaxPlayers = maxPlayers, IsVisible = publicRoomToggle.isOn, IsOpen = true },
                 _customLobby);
         }
 

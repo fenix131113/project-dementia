@@ -11,6 +11,7 @@ namespace Interactable.Custom.ClickInteractions
 
         public override void Interact()
         {
+            base.Interact();
             IsPressed = !IsPressed;
             
             OnInteract?.Invoke();

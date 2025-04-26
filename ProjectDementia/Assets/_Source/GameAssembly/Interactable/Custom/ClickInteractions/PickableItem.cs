@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Core;
 using Interactable.Base;
 using InventorySystem;
 using ItemsSystem;
@@ -37,13 +38,16 @@ namespace Interactable.Custom.ClickInteractions
         [PunRPC]
         private void InitCustomData_RPC(List<string> customData) => customItemData = customData;
 
-        public override void Interact() =>
+        public override void Interact()
+        {
+            base.Interact();
             PhotonView.RPC(nameof(TakeItem), RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+        }
 
         [PunRPC]
         private void TakeItem(int actorNumber)
         {
-            _playersInventory.GetPlayerInventory(PhotonNetwork.PlayerList[0].Get(actorNumber))
+            _playersInventory.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(actorNumber))
                 .AddItem(_itemsContainer.GetItemBySO(item), customItemData);
             
             gameObject.SetActive(false);
