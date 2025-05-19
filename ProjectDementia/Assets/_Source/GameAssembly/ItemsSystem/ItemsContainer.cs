@@ -23,6 +23,8 @@ namespace ItemsSystem
         public Item GetItemBySO(ItemSO itemSO) => _itemsPair[itemSO];
 
         public Item GetItemByID(int id) => _itemsPair.First(item => item.Value.ID == id).Value;
+        
+        public ItemSO GetSOByID(int id) => _itemsPair.First(item => item.Value.ID == id).Key;
 
         public void GenerateItems() // TODO: Check if generate items provides same id's on both the clients
         {

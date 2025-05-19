@@ -10,17 +10,20 @@ namespace Core.Initializing
     {
         private readonly ItemsContainer _itemsContainer;
         private readonly PlayersInventory _playersInventory;
-        
+        private readonly IObjectResolver _resolver;
+
         [Inject]
-        public LevelBootstrapper(ItemsContainer itemsContainer, PlayersInventory playersInventory)
+        public LevelBootstrapper(ItemsContainer itemsContainer, PlayersInventory playersInventory,
+            IObjectResolver resolver)
         {
             _itemsContainer = itemsContainer;
             _playersInventory = playersInventory;
+            _resolver = resolver;
         }
-        
+
         public void Start()
         {
-            
+            SemiFunc.Init(_resolver);
         }
     }
 }

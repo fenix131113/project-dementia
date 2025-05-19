@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Core;
 using Interactable.Base;
 using InventorySystem;
@@ -8,12 +9,13 @@ using ItemsSystem.Data;
 using Photon.Pun;
 using UnityEngine;
 using VContainer;
+// ReSharper disable CoVariantArrayConversion
 
 namespace Interactable.Custom.ClickInteractions
 {
     public class PickableItem : AInteractableObject
     {
-        [SerializeField] private ItemSO item;
+        [field: SerializeField] public ItemSO Item { get; private set; }
 
         public List<string> customItemData;
 
@@ -33,10 +35,10 @@ namespace Interactable.Custom.ClickInteractions
         /// Replace custom data with given
         /// </summary>
         public void InitCustomData(List<string> customData) =>
-            PhotonView.RPC(nameof(InitCustomData_RPC), RpcTarget.All, customData);
+            PhotonView.RPC(nameof(InitCustomData_RPC), RpcTarget.All, customData.ToArray());
 
         [PunRPC]
-        private void InitCustomData_RPC(List<string> customData) => customItemData = customData;
+        private void InitCustomData_RPC(string[] customData) => customItemData = customData.ToList();
 
         public override void Interact()
         {
@@ -48,8 +50,8 @@ namespace Interactable.Custom.ClickInteractions
         private void TakeItem(int actorNumber)
         {
             _playersInventory.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(actorNumber))
-                .AddItem(_itemsContainer.GetItemBySO(item), customItemData);
-            
+                .AddItem(_itemsContainer.GetItemBySO(Item), customItemData);
+
             gameObject.SetActive(false);
             OnInteract?.Invoke();
         }

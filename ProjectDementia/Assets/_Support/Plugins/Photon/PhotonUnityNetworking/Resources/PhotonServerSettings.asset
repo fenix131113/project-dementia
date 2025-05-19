@@ -68,6 +68,9 @@ MonoBehaviour:
   - SetCheckAbility
   - CheckItem_RPC
   - SetInteractable
+  - PlaceObject
+  - TakeObject_RPC
+  - PlaceObject_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

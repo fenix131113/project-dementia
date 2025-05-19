@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemName>k__BackingField: "\u0424\u043E\u0442\u043E\u043D"
   <Icon>k__BackingField: {fileID: 21300000, guid: f00feafcf0675cd47a48f83ae42b06d4, type: 3}
+  <Prefab>k__BackingField: {fileID: 3170905964205409934, guid: 68bbf978402e8bb408f6237a6eedb78e, type: 3}

@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Interactable.Custom.ClickInteractions;
+using UnityEngine;
 
 namespace ItemsSystem.Data
 {
@@ -7,5 +8,6 @@ namespace ItemsSystem.Data
     {
         [field: SerializeField] public string ItemName { get; private set; }
         [field: SerializeField] public Sprite Icon { get; private set; }
+        [field: SerializeField] public PickableItem Prefab { get; private set; }
     }
 }
