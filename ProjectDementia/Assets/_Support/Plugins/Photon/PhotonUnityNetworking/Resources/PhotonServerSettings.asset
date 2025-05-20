@@ -71,6 +71,10 @@ MonoBehaviour:
   - PlaceObject
   - TakeObject_RPC
   - PlaceObject_RPC
+  - SelectCurrentLevel
+  - SelectLevel
+  - InitObject_RPC
+  - InitSpawnedObject_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

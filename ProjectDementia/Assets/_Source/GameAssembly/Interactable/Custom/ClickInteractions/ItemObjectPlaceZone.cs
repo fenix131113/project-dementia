@@ -41,6 +41,7 @@ namespace Interactable.Custom.ClickInteractions
             PlaceObject(PhotonNetwork.LocalPlayer.ActorNumber,
                 _inventories.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(PhotonNetwork.LocalPlayer.ActorNumber))
                     .Items.ToList().IndexOf(handsItem));
+            Debug.Log("Interact");
         }
 
         public void PlaceObject(int playerActorNumber, int inventoryID)
@@ -63,8 +64,23 @@ namespace Interactable.Custom.ClickInteractions
             SpawnObject();
         }
 
+        [PunRPC]
+        private void InitSpawnedObject_RPC(int viewID)
+        {
+            var spawned = PhotonView.Find(viewID).GetComponent<PickableItem>();
+            
+            spawnedItem = spawned;
+            SemiFunc.InjectObject(spawned.gameObject);
+
+            spawned.InitCustomData(_currentInventoryItem.CustomData);
+            spawned.GetComponent<AInteractableObject>().OnInteract += OnObjectTaken;
+        }
+
         private void SpawnObject()
         {
+            if (!PhotonNetwork.IsMasterClient)
+                return;
+            
             var spawnPos = transform.position;
             var spawnRot = Quaternion.identity;
 
@@ -77,32 +93,20 @@ namespace Interactable.Custom.ClickInteractions
                 spawnPos = transform.position + offsetItem.PositionOffset;
                 spawnRot = Quaternion.Euler(offsetItem.Rotation);
             }
-
+            
             var spawned = PhotonNetwork.Instantiate(
                 $"Prefabs/Items/{_itemsContainer.GetSOByID(_currentInventoryItem.Item.ID).Prefab.name}",
                 spawnPos,
-                spawnRot).GetComponent<PickableItem>();
-
-            spawnedItem = spawned;
-            SemiFunc.InjectObject(spawned.gameObject);
-
-            spawned.InitCustomData(_currentInventoryItem.CustomData);
-            spawned.GetComponent<AInteractableObject>().OnInteract += OnObjectTaken;
+                spawnRot).GetComponent<PhotonView>();
+                
+            PhotonView.RPC(nameof(InitSpawnedObject_RPC), RpcTarget.All, spawned.ViewID);
         }
 
-        [PunRPC]
-        private void TakeObject_RPC()
+        private void OnObjectTaken()
         {
             spawnedItem = null;
             touchCollider.enabled = true;
-
-            if (spawnedItem)
-                Destroy(spawnedItem.gameObject);
-            else
-                Debug.LogWarning("Empty item place!");
         }
-
-        private void OnObjectTaken() => PhotonView.RPC(nameof(TakeObject_RPC), RpcTarget.All);
 
         [Serializable]
         public class PlaceZoneObjectOffset

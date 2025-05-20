@@ -9,6 +9,7 @@ using ItemsSystem.Data;
 using Photon.Pun;
 using UnityEngine;
 using VContainer;
+
 // ReSharper disable CoVariantArrayConversion
 
 namespace Interactable.Custom.ClickInteractions
@@ -29,6 +30,8 @@ namespace Interactable.Custom.ClickInteractions
         {
             _playersInventory = playersInventory;
             _itemsContainer = itemsContainer;
+            Debug.Log($"inventories {playersInventory != null}");
+            Debug.Log($"container {itemsContainer != null}");
         }
 
         /// <summary>
@@ -49,11 +52,16 @@ namespace Interactable.Custom.ClickInteractions
         [PunRPC]
         private void TakeItem(int actorNumber)
         {
+            Debug.Log($"Players Inventory: {_playersInventory != null}");
+            Debug.Log($"Items Container: {_itemsContainer != null}");
+            Debug.Log($"Item: {Item != null}");
+            Debug.Log($"Custrom data: {customItemData != null}");
+            
             _playersInventory.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(actorNumber))
                 .AddItem(_itemsContainer.GetItemBySO(Item), customItemData);
-
-            gameObject.SetActive(false);
+            
             OnInteract?.Invoke();
+            Destroy(gameObject);
         }
     }
 }

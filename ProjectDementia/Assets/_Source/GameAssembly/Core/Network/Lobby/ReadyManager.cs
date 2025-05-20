@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Interactable.Custom;
 using Interactable.Custom.ClickInteractions;
+using Interactable.Custom.Lobby;
 using Levels;
 using Photon.Pun;
 using UnityEngine;
