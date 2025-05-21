@@ -13,8 +13,11 @@ namespace Interactable.Custom.ClickInteractions
 {
     public class ItemObjectPlaceZone : AInteractableObject
     {
-        [SerializeField] private PickableItem spawnedItem;
+        [field: SerializeField] public PickableItem SpawnedItem { get; private set; }
+        
         [SerializeField] private Collider touchCollider;
+        [SerializeField] private bool anyObjectAccept = true;
+        [SerializeField] private ItemSO[] allowedItems;
         [SerializeField] private PlaceZoneObjectOffset[] placeZoneObjectOffsets;
 
         [Inject] private ItemsContainer _itemsContainer;
@@ -24,29 +27,34 @@ namespace Interactable.Custom.ClickInteractions
         private InventoryItem _currentInventoryItem;
 
         public override event Action OnInteract;
+        public event Action<PickableItem> OnObjectPlaced;
 
         private void Start()
         {
-            if (!spawnedItem)
+            if (!SpawnedItem)
                 return;
 
             touchCollider.enabled = false;
-            spawnedItem.OnInteract += OnObjectTaken;
+            SpawnedItem.OnInteract += OnObjectTaken;
         }
 
         public override void Interact()
         {
             base.Interact();
             var handsItem = _itemSelector.SelectedItem;
+            
+            if (!anyObjectAccept &&
+                !allowedItems.Contains(_itemsContainer.GetSOByID(_itemSelector.SelectedItem.Item.ID)))
+                return;
+
             PlaceObject(PhotonNetwork.LocalPlayer.ActorNumber,
                 _inventories.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(PhotonNetwork.LocalPlayer.ActorNumber))
                     .Items.ToList().IndexOf(handsItem));
-            Debug.Log("Interact");
         }
 
         public void PlaceObject(int playerActorNumber, int inventoryID)
         {
-            if (spawnedItem || _itemSelector.SelectedItem == null)
+            if (SpawnedItem || _itemSelector.SelectedItem == null)
                 return;
 
             PhotonView.RPC(nameof(PlaceObject_RPC), RpcTarget.All, playerActorNumber, inventoryID);
@@ -68,19 +76,21 @@ namespace Interactable.Custom.ClickInteractions
         private void InitSpawnedObject_RPC(int viewID)
         {
             var spawned = PhotonView.Find(viewID).GetComponent<PickableItem>();
-            
-            spawnedItem = spawned;
+
+            SpawnedItem = spawned;
             SemiFunc.InjectObject(spawned.gameObject);
 
             spawned.InitCustomData(_currentInventoryItem.CustomData);
             spawned.GetComponent<AInteractableObject>().OnInteract += OnObjectTaken;
+            OnObjectPlaced?.Invoke(spawned);
         }
 
+        // Call on both clients... But complete only on master to prevent spawning second object
         private void SpawnObject()
         {
             if (!PhotonNetwork.IsMasterClient)
                 return;
-            
+
             var spawnPos = transform.position;
             var spawnRot = Quaternion.identity;
 
@@ -89,22 +99,23 @@ namespace Interactable.Custom.ClickInteractions
             {
                 var offsetItem = placeZoneObjectOffsets.First(x =>
                     _itemsContainer.GetItemBySO(x.Item).ID == _currentInventoryItem.Item.ID);
-                
+
                 spawnPos = transform.position + offsetItem.PositionOffset;
                 spawnRot = Quaternion.Euler(offsetItem.Rotation);
             }
-            
+
+            var soItem = _itemsContainer.GetSOByID(_currentInventoryItem.Item.ID);
             var spawned = PhotonNetwork.Instantiate(
-                $"Prefabs/Items/{_itemsContainer.GetSOByID(_currentInventoryItem.Item.ID).Prefab.name}",
+                $"{FoldersPaths.PICKABLE_PREFABS_PATH}{soItem.AdditionalFolderPath}/{soItem.Prefab.name}",
                 spawnPos,
                 spawnRot).GetComponent<PhotonView>();
-                
+
             PhotonView.RPC(nameof(InitSpawnedObject_RPC), RpcTarget.All, spawned.ViewID);
         }
 
         private void OnObjectTaken()
         {
-            spawnedItem = null;
+            SpawnedItem = null;
             touchCollider.enabled = true;
         }
 

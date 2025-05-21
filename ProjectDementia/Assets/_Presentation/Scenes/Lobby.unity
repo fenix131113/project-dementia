@@ -3653,9 +3653,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelSelectedButtons:
-  - {fileID: 1635379072}
-  - {fileID: 1090864406}
   - {fileID: 522229141}
+  - {fileID: 1090864406}
+  - {fileID: 1635379072}
   startSelectedButton: {fileID: 522229141}
 --- !u!1 &2090577165
 GameObject:

@@ -1,11 +1,10 @@
 ﻿using DG.Tweening;
 using Interactable.Custom;
 using Interactable.Custom.ClickInteractions;
-using Interactable.Custom.Lobby;
 using Levels;
 using Photon.Pun;
-using UnityEngine;
 using R3;
+using UnityEngine;
 using UnityEngine.UI;
 
 namespace Core.Network.Lobby
@@ -76,7 +75,7 @@ namespace Core.Network.Lobby
 
         [PunRPC]
         private void OpenElevator() => door.OpenDoor();
-        
+
         [PunRPC]
         private void CloseElevator() => door.CloseDoor();
 
@@ -85,13 +84,12 @@ namespace Core.Network.Lobby
         {
             if (!isBoth)
                 return;
-            
+
             loadFadeScreen.DOFade(1f, 2.5f).onComplete +=
-                () => photonView.RPC(nameof(CheckLoadLevelConditions), RpcTarget.MasterClient);
-            photonView.RPC(nameof(CloseElevator), RpcTarget.All);
+                CheckLoadLevelConditions;
+            CloseElevator();
         }
 
-        [PunRPC]
         private void CheckLoadLevelConditions()
         {
             if (_firstPlayerReady && _secondPlayerReady && PhotonNetwork.IsMasterClient)

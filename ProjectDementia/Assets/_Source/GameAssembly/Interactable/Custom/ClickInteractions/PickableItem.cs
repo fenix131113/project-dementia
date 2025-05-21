@@ -30,15 +30,19 @@ namespace Interactable.Custom.ClickInteractions
         {
             _playersInventory = playersInventory;
             _itemsContainer = itemsContainer;
-            Debug.Log($"inventories {playersInventory != null}");
-            Debug.Log($"container {itemsContainer != null}");
         }
 
         /// <summary>
         /// Replace custom data with given
         /// </summary>
-        public void InitCustomData(List<string> customData) =>
-            PhotonView.RPC(nameof(InitCustomData_RPC), RpcTarget.All, customData.ToArray());
+        public void InitCustomData(List<string> customData)
+        {
+            if(customData == null)
+                return;
+            
+            PhotonView.RPC(nameof(InitCustomData_RPC), RpcTarget.All, new object[] { customData.ToArray() });
+
+        }
 
         [PunRPC]
         private void InitCustomData_RPC(string[] customData) => customItemData = customData.ToList();
@@ -52,11 +56,6 @@ namespace Interactable.Custom.ClickInteractions
         [PunRPC]
         private void TakeItem(int actorNumber)
         {
-            Debug.Log($"Players Inventory: {_playersInventory != null}");
-            Debug.Log($"Items Container: {_itemsContainer != null}");
-            Debug.Log($"Item: {Item != null}");
-            Debug.Log($"Custrom data: {customItemData != null}");
-            
             _playersInventory.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(actorNumber))
                 .AddItem(_itemsContainer.GetItemBySO(Item), customItemData);
             
