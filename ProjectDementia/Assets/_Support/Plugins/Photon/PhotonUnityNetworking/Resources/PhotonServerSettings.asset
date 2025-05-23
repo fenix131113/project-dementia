@@ -75,6 +75,10 @@ MonoBehaviour:
   - SelectLevel
   - InitObject_RPC
   - InitSpawnedObject_RPC
+  - SyncAnimator
+  - MovePlayer
+  - SyncAnimator_RPC
+  - TriggerTakeAnim_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

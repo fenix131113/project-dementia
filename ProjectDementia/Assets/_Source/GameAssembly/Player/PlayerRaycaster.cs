@@ -1,5 +1,6 @@
 ﻿using DG.Tweening;
 using Interactable.Base;
+using Interactable.Custom.ClickInteractions;
 using TMPro;
 using UnityEngine;
 using Utils;
@@ -15,6 +16,7 @@ namespace Player
         [SerializeField] private TMP_Text interactHelper;
         [SerializeField] private LayerMask interactableLayer;
         [SerializeField] private float rayDistance;
+        [SerializeField] private PlayerController playerController;
 
         private float _startSize;
         private bool _detectedObject;
@@ -84,9 +86,14 @@ namespace Player
             if (!Input.GetKeyDown(KeyCode.E))
                 return;
 
-            if (hit.transform.gameObject &&
-                LayerService.CheckLayersEquality(hit.transform.gameObject.layer, interactableLayer))
-                interactable.Interact();
+            if (!hit.transform.gameObject ||
+                !LayerService.CheckLayersEquality(hit.transform.gameObject.layer, interactableLayer))
+                return;
+
+            if (hit.transform.TryGetComponent(out PickableItem _) && interactable.CanInteract)
+                playerController.TriggerTakeAnim();
+            
+            interactable.Interact();
         }
     }
 }

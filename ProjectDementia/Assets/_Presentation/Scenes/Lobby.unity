@@ -3729,8 +3729,10 @@ MonoBehaviour:
   onInteractEvent:
     m_PersistentCalls:
       m_Calls: []
-  spawnedItem: {fileID: 0}
+  <SpawnedItem>k__BackingField: {fileID: 0}
   touchCollider: {fileID: 2090577167}
+  anyObjectAccept: 1
+  allowedItems: []
   placeZoneObjectOffsets:
   - <Item>k__BackingField: {fileID: 11400000, guid: add1bb7668dea304dafcd52fc5a67fae, type: 2}
     <PositionOffset>k__BackingField: {x: 0, y: -0.1, z: 0}

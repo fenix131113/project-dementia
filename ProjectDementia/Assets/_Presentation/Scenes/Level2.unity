@@ -963,6 +963,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 85e0050df049b544d90ed0e0cd264096, type: 2}
   - {fileID: 11400000, guid: 0c5ba401644aac8418952871f9ac0f19, type: 2}
   - {fileID: 11400000, guid: fc8f9df13ad171f4f98be4be9db5c2b7, type: 2}
+  onPuzzleCompleted:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &630543740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2427,7 +2430,7 @@ GameObject:
   - component: {fileID: 1994286095}
   - component: {fileID: 1994286094}
   - component: {fileID: 1994286093}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2578,7 +2581,7 @@ GameObject:
   - component: {fileID: 2006652533}
   - component: {fileID: 2006652537}
   - component: {fileID: 2006652536}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
