@@ -79,6 +79,10 @@ MonoBehaviour:
   - MovePlayer
   - SyncAnimator_RPC
   - TriggerTakeAnim_RPC
+  - MakeTransition
+  - MakeTransition_RPC
+  - SetFirstPlayerOnPlate_RPC
+  - SetSecondPlayerOnPlate_RPC
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

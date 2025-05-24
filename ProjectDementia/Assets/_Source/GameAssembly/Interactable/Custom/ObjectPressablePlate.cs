@@ -9,9 +9,13 @@ namespace Interactable.Custom
     public class ObjectPressablePlate : APressablePlate
     {
         [SerializeField] private UnityEvent onPressedEvent;
+        [SerializeField] private UnityEvent onReleasedEvent;
+        [SerializeField] private bool canRelease;
 
         public event Action<ObjectPressablePlate> OnPressed;
         public event Action<ObjectPressablePlate, GameObject> OnPressedOwner;
+        public event Action<ObjectPressablePlate> OnReleased;
+        public event Action<ObjectPressablePlate, GameObject> OnReleasedOwner;
         
         private Action _customPressAction;
         
@@ -32,6 +36,20 @@ namespace Interactable.Custom
             onPressedEvent?.Invoke();
             OnPressed?.Invoke(this);
             OnPressedOwner?.Invoke(this, initiator);
+        }
+
+        public override void Release(GameObject initiator)
+        {
+            base.Release(initiator);
+            
+            if(!Pressed || !canRelease)
+                return;
+            
+            ResetPlate();
+            
+            onReleasedEvent?.Invoke();
+            OnReleased?.Invoke(this);
+            OnReleasedOwner?.Invoke(this, initiator);
         }
     }
 }

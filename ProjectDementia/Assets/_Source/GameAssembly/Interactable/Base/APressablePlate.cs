@@ -26,7 +26,7 @@ namespace Interactable.Base
             if (!LayerService.CheckLayersEquality(other.gameObject.layer, interactableLayer))
                 return;
             
-            Release();
+            Release(other.gameObject);
         }
 
         public void BlockPlate() => IsBlocked = true;
@@ -37,7 +37,7 @@ namespace Interactable.Base
                 return;
         }
 
-        public virtual void Release()
+        public virtual void Release(GameObject initiator)
         {
             if(IsBlocked)
                 return;
@@ -46,6 +46,7 @@ namespace Interactable.Base
         public virtual void ResetPlate()
         {
             Pressed = false;
+            IsBlocked = false;
         }
     }
 }
