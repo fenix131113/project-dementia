@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
-  m_Name: TestItem
+  m_Name: MapPart3
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: "\u0424\u043E\u0442\u043E\u043D"
-  <Icon>k__BackingField: {fileID: 21300000, guid: f00feafcf0675cd47a48f83ae42b06d4, type: 3}
-  <Prefab>k__BackingField: {fileID: 3170905964205409934, guid: 68bbf978402e8bb408f6237a6eedb78e, type: 3}
+  <ItemName>k__BackingField: "\u041A\u0443\u0441\u043E\u0447\u0435\u043A \u043A\u0430\u0440\u0442\u044B"
+  <Icon>k__BackingField: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
+  <Prefab>k__BackingField: {fileID: 9036343381027853145, guid: 932fa11928906d64da82f2088b0654fd, type: 3}
+  <AdditionalFolderPath>k__BackingField: Level1

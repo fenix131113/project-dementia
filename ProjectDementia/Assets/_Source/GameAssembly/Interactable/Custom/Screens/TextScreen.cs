@@ -1,11 +1,9 @@
-﻿using Photon.Pun;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 
-namespace Interactable.Custom
+namespace Interactable.Custom.Screens
 {
-    [RequireComponent(typeof(PhotonView))]
-    public class InfoScreen : MonoBehaviour
+    public class TextScreen : MonoBehaviour
     {
         [field: SerializeField] public Color DefaultColor { get; private set; } = Color.white;
 

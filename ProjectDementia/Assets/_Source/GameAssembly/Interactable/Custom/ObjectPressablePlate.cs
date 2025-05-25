@@ -46,6 +46,7 @@ namespace Interactable.Custom
                 return;
             
             ResetPlate();
+            UnblockPlate();
             
             onReleasedEvent?.Invoke();
             OnReleased?.Invoke(this);

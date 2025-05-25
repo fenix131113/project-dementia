@@ -30,6 +30,7 @@ namespace Interactable.Base
         }
 
         public void BlockPlate() => IsBlocked = true;
+        public void UnblockPlate() => IsBlocked = false;
 
         public virtual void Press(GameObject initiator)
         {
@@ -46,7 +47,6 @@ namespace Interactable.Base
         public virtual void ResetPlate()
         {
             Pressed = false;
-            IsBlocked = false;
         }
     }
 }

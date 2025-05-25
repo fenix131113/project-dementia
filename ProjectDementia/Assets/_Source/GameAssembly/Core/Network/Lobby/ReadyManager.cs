@@ -1,6 +1,7 @@
 ﻿using DG.Tweening;
 using Interactable.Custom;
 using Interactable.Custom.ClickInteractions;
+using Interactable.Custom.Screens;
 using Levels;
 using Photon.Pun;
 using R3;
@@ -16,8 +17,8 @@ namespace Core.Network.Lobby
         [SerializeField] private Image loadFadeScreen;
         [SerializeField] private Lamp inactiveLamp;
         [SerializeField] private Lamp activeLamp;
-        [SerializeField] private InfoScreen firstPlayerInfoScreen;
-        [SerializeField] private InfoScreen secondPlayerInfoScreen;
+        [SerializeField] private TextScreen firstPlayerTextScreen;
+        [SerializeField] private TextScreen secondPlayerTextScreen;
         [SerializeField] private Color readyColor = Color.green;
         [SerializeField] private Color unreadyColor = Color.red;
         [SerializeField] private ClickableButton readyButton;
@@ -59,14 +60,14 @@ namespace Core.Network.Lobby
             if (playerID == 1)
             {
                 _firstPlayerReady = state;
-                firstPlayerInfoScreen.SetColor(state ? readyColor : unreadyColor);
-                firstPlayerInfoScreen.DrawText(state ? "\\/" : "X");
+                firstPlayerTextScreen.SetColor(state ? readyColor : unreadyColor);
+                firstPlayerTextScreen.DrawText(state ? "\\/" : "X");
             }
             else
             {
                 _secondPlayerReady = state;
-                secondPlayerInfoScreen.SetColor(state ? readyColor : unreadyColor);
-                secondPlayerInfoScreen.DrawText(state ? "\\/" : "X");
+                secondPlayerTextScreen.SetColor(state ? readyColor : unreadyColor);
+                secondPlayerTextScreen.DrawText(state ? "\\/" : "X");
             }
 
             if (_firstPlayerReady && _secondPlayerReady)

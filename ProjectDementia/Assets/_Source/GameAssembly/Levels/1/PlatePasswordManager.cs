@@ -2,16 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using Interactable.Custom;
+using Interactable.Custom.Screens;
 using Photon.Pun;
 using UnityEngine;
 
 namespace Levels._1
 {
-    [RequireComponent(typeof(PhotonNetwork))]
-    public class PlatePasswordManager : MonoBehaviour
+    public class PlatePasswordManager : MonoBehaviourPun
     {
         [SerializeField] private List<PlateItems> colorPlates;
-        [SerializeField] private PhotonView netView;
         [SerializeField] private Door[] doors;
 
         private int _pressedCounter;
@@ -21,11 +20,11 @@ namespace Levels._1
 
         private void OnDestroy() => Expose();
 
-        private void RPC_CheckPassword() => netView.RPC(nameof(CheckPassword), RpcTarget.AllBuffered);
-        private void RPC_ResetPassword() => netView.RPC(nameof(ResetPassword), RpcTarget.AllBuffered);
+        private void RPC_CheckPassword() => photonView.RPC(nameof(CheckPassword), RpcTarget.All);
+        private void RPC_ResetPassword() => photonView.RPC(nameof(ResetPassword), RpcTarget.All);
 
         private void RPC_AddPressedPlate(int plateIndex) =>
-            netView.RPC(nameof(AddPressedPlate), RpcTarget.AllBuffered, plateIndex);
+            photonView.RPC(nameof(AddPressedPlate), RpcTarget.All, plateIndex);
 
         [PunRPC]
         private void CheckPassword()
@@ -55,14 +54,17 @@ namespace Levels._1
             _pressedPlates.Clear();
 
             foreach (var plate in colorPlates)
+            {
                 plate.PressablePlate.ResetPlate();
+                plate.TextScreen.ResetScreen();
+            }
         }
 
         [PunRPC]
         private void AddPressedPlate(int plateIndex)
         {
             _pressedCounter++;
-            colorPlates[plateIndex].InfoScreen.DrawText(_pressedCounter.ToString());
+            colorPlates[plateIndex].TextScreen.DrawText(_pressedCounter.ToString());
             _pressedPlates.Add(colorPlates[plateIndex].PressablePlate);
         }
 
@@ -88,7 +90,7 @@ namespace Levels._1
         public class PlateItems
         {
             [field: SerializeField] public ObjectPressablePlate PressablePlate { get; set; }
-            [field: SerializeField] public InfoScreen InfoScreen { get; set; }
+            [field: SerializeField] public TextScreen TextScreen { get; set; }
         }
     }
 }

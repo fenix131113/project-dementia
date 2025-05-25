@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Interactable.Base;
@@ -14,7 +15,7 @@ namespace Interactable.Custom.ClickInteractions
     public class ItemObjectPlaceZone : AInteractableObject
     {
         [field: SerializeField] public PickableItem SpawnedItem { get; private set; }
-        
+
         [SerializeField] private Collider touchCollider;
         [SerializeField] private bool anyObjectAccept = true;
         [SerializeField] private ItemSO[] allowedItems;
@@ -42,7 +43,7 @@ namespace Interactable.Custom.ClickInteractions
         {
             base.Interact();
             var handsItem = _itemSelector.SelectedItem;
-            
+
             if (!anyObjectAccept &&
                 !allowedItems.Contains(_itemsContainer.GetSOByID(_itemSelector.SelectedItem.Item.ID)))
                 return;
@@ -95,10 +96,10 @@ namespace Interactable.Custom.ClickInteractions
             var spawnRot = Quaternion.identity;
 
             if (placeZoneObjectOffsets.Any(x =>
-                    _itemsContainer.GetItemBySO(x.Item).ID == _currentInventoryItem.Item.ID))
+                    x.Items.Any(y => _itemsContainer.GetItemBySO(y).ID == _currentInventoryItem.Item.ID)))
             {
                 var offsetItem = placeZoneObjectOffsets.First(x =>
-                    _itemsContainer.GetItemBySO(x.Item).ID == _currentInventoryItem.Item.ID);
+                    x.Items.First(y => _itemsContainer.GetItemBySO(y).ID == _currentInventoryItem.Item.ID));
 
                 spawnPos = transform.position + offsetItem.PositionOffset;
                 spawnRot = Quaternion.Euler(offsetItem.Rotation);
@@ -122,7 +123,7 @@ namespace Interactable.Custom.ClickInteractions
         [Serializable]
         public class PlaceZoneObjectOffset
         {
-            [field: SerializeField] public ItemSO Item { get; private set; }
+            [field: SerializeField] public List<ItemSO> Items { get; private set; }
             [field: SerializeField] public Vector3 PositionOffset { get; private set; }
             [field: SerializeField] public Vector3 Rotation { get; private set; }
         }

@@ -330,7 +330,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   doorOpenTime: 2
-  doorOpenWidth: 0.7
+  doorOpenWidth: 0.6
   doorPart: {fileID: 4399871904326780793}
   secondDoorPart: {fileID: 1635312570979140051}
 --- !u!1 &7168554403060568289

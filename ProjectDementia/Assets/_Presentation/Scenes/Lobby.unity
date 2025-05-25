@@ -646,8 +646,8 @@ MonoBehaviour:
   loadFadeScreen: {fileID: 1309759513}
   inactiveLamp: {fileID: 229133540494286562}
   activeLamp: {fileID: 779410555}
-  firstPlayerInfoScreen: {fileID: 741911721}
-  secondPlayerInfoScreen: {fileID: 449405678}
+  firstPlayerTextScreen: {fileID: 741911721}
+  secondPlayerTextScreen: {fileID: 449405678}
   readyColor: {r: 0.10734272, g: 1, b: 0, a: 1}
   unreadyColor: {r: 1, g: 0, b: 0, a: 1}
   readyButton: {fileID: 33812323}

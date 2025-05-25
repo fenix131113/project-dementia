@@ -44,14 +44,14 @@ namespace Core.Network
             var selectedSpawn = PhotonNetwork.LocalPlayer.ActorNumber == 1 ? firstSpawnPoint : secondSpawnPoint;
             
             var spawned = PhotonNetwork.Instantiate("Prefabs/PlayerPrefab",
-                selectedSpawn.position, Quaternion.identity);
-            photonView.RPC(nameof(InjectSpawnedPlayer), RpcTarget.AllBuffered,
+                selectedSpawn.position, selectedSpawn.rotation);
+            photonView.RPC(nameof(InjectSpawnedPlayer), RpcTarget.All,
                 spawned.GetComponent<PhotonView>().ViewID);
             
             _playerObjects.SetCurrentPlayerObject(spawned);
             
             spawned.GetComponent<PhotonView>()
-                .RPC("SetNickname", RpcTarget.AllBuffered, PhotonNetwork.LocalPlayer.NickName);
+                .RPC("SetNickname", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
         }
 
         [PunRPC]
