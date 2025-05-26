@@ -6,28 +6,46 @@
             "id": "5b025b87-792b-45a6-903a-a837bb3364cb",
             "actions": [
                 {
-                    "name": "Moving",
-                    "type": "PassThrough",
+                    "name": "Move",
+                    "type": "Value",
                     "id": "1f2c417d-ebe5-49f9-a86c-38f4e4e9b784",
-                    "expectedControlType": "Vector3",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
                 },
                 {
                     "name": "Jump",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "083a0c01-a2f8-4932-bde9-afef5d3ae9b7",
-                    "expectedControlType": "Vector3",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Crouch",
+                    "type": "Button",
+                    "id": "5ea8a2b6-57dd-4747-b75f-c15200fd3eea",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
                 },
                 {
                     "name": "Sprint",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "1954e553-ba8e-4321-957a-ec9241fa68c1",
-                    "expectedControlType": "Key",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Escape",
+                    "type": "Button",
+                    "id": "1f216629-5110-489d-b913-7358ef334785",
+                    "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
@@ -50,7 +68,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Moving",
+                    "action": "Move",
                     "isComposite": true,
                     "isPartOfComposite": false
                 },
@@ -60,19 +78,8 @@
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
-                    "action": "Moving",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "588acdc1-071d-4184-b738-316958aed786",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";Controller",
-                    "action": "Moving",
+                    "groups": "Player",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -82,8 +89,19 @@
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
-                    "action": "Moving",
+                    "groups": "Player",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "588acdc1-071d-4184-b738-316958aed786",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -93,8 +111,8 @@
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
-                    "action": "Moving",
+                    "groups": "Player",
+                    "action": "Move",
                     "isComposite": false,
                     "isPartOfComposite": true
                 },
@@ -104,7 +122,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Player",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -115,7 +133,7 @@
                     "path": "<Keyboard>/shift",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Player",
                     "action": "Sprint",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -126,36 +144,30 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
+                    "groups": "Player",
                     "action": "Interaction",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "Camera Control",
-            "id": "d1b07be2-82b3-443c-bf53-27de9f73bb14",
-            "actions": [
-                {
-                    "name": "MouseDelta",
-                    "type": "PassThrough",
-                    "id": "49e93550-c1fc-4dc9-9a1e-9240b2a59443",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "a72026e7-bedc-48b5-bec5-ff1e6a2a0e8b",
-                    "path": "<Mouse>/delta",
+                    "id": "35f503a9-539c-4a43-ac5d-44baeaa13666",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": ";Controller",
-                    "action": "MouseDelta",
+                    "groups": "Player",
+                    "action": "Escape",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ecf6799-d340-4496-9ee4-5041dc66e8cf",
+                    "path": "<Keyboard>/ctrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Player",
+                    "action": "Crouch",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
@@ -164,8 +176,8 @@
     ],
     "controlSchemes": [
         {
-            "name": "Controller",
-            "bindingGroup": "Controller",
+            "name": "Player",
+            "bindingGroup": "Player",
             "devices": [
                 {
                     "devicePath": "<Keyboard>",

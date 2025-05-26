@@ -1,96 +1,97 @@
 using Photon.Pun;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Player
 {
     public class PlayerMovements : MonoBehaviour
     {
-        private const float GRAVITY = -9.81f;
-    
-        [SerializeField] private PhotonView netView;
-        [SerializeField] private PlayerStats playerStats;
-        
-        private CharacterController _characterController;
-        private Vector3 _velocity;
-        private Vector3 _moveDirection;
-        private float _currentSpeed;
-        private bool _isDead;
-        private bool _canMove = true;
+        [SerializeField] private float _moveSpeed = 5f;
+        [SerializeField] private float _sprintMultiplier = 1.5f;
+        [SerializeField] private float _jumpForce = 5f;
+        [SerializeField] private bool isCrouching = false;
+
+        private Vector2 _moveDirection;
+        private bool isMoving = true;
+        private bool isGrounded = true;
+
+        private Rigidbody rb;
+
+        [SerializeField] private GameObject settingsMenu;
 
         private void Awake()
         {
-            _characterController = GetComponent<CharacterController>();
+            rb = GetComponent<Rigidbody>();
         }
 
-        private void Update()
+        private void OnMove(InputAction.CallbackContext context)
         {
-            Debug.Log("false");
-            if (!netView.IsMine || !_canMove)
-                return;
-            Debug.Log("True");
-            
-            MovePlayer();
+            _moveDirection = context.ReadValue<Vector2>();
+            if (isMoving)
+            {
+                Move(_moveDirection);
+            }
         }
 
-        public void SetMovementStatus(bool canMove) => _canMove = canMove;
-
-        public void OnMove(InputAction.CallbackContext context)
+        private void OnJump(InputAction.CallbackContext context)
         {
-            _moveDirection = context.ReadValue<Vector3>();
-        }
-
-        public void OnJump(InputAction.CallbackContext context)
-        {
-            if (context.performed && !_isDead && _characterController.isGrounded)
+            if (context.performed && isGrounded)
             {
                 Jump();
             }
         }
 
-        public void OnSprint(InputAction.CallbackContext context)
+        private void OnCrouch(InputAction.CallbackContext context)
         {
             if (context.performed)
             {
-                SetSprintState(true);
-            }
-            else if (context.canceled)
-            {
-                SetSprintState(false);
+                isCrouching = !isCrouching;
             }
         }
 
-        private void SetSprintState(bool isSprinting)
+        private void OnEscape(InputAction.CallbackContext context)
         {
-            _currentSpeed = isSprinting ? playerStats.SprintSpeed : playerStats.Speed;
+            if (context.performed)
+            {
+                ToggleSettingsMenu();
+            }
         }
 
-        private void MovePlayer()
+        private void Update()
         {
-            if (_isDead)
-                return;
-            
-            Debug.Log(_moveDirection.ToString());
-
-            var moveVector = transform.TransformDirection(new Vector3(_moveDirection.x, 0, _moveDirection.z));
-            _currentSpeed = _currentSpeed == 0 ? playerStats.Speed : _currentSpeed;
-
-            if (_characterController.isGrounded)
+            if (isMoving)
             {
-                _velocity.y = -1;
+                Move(_moveDirection);
             }
-            else
+        }
+
+        private void Move(Vector2 direction)
+        {
+            float scaledMoveSpeed = _moveSpeed * (isCrouching ? 0.5f : 1f) * Time.deltaTime;
+            if (Keyboard.current.leftShiftKey.isPressed)
             {
-                _velocity.y += GRAVITY * Time.deltaTime;
+                scaledMoveSpeed *= _sprintMultiplier;
             }
 
-            _characterController.Move(moveVector * (_currentSpeed * Time.deltaTime));
-            _characterController.Move(_velocity * Time.deltaTime);
+            Vector3 moveDirection = new Vector3(direction.x, 0, direction.y);
+            rb.MovePosition(transform.position + moveDirection * scaledMoveSpeed);
         }
 
         private void Jump()
         {
-            _velocity.y = Mathf.Sqrt(-2f * GRAVITY * playerStats.JumpHeight);
+            rb.AddForce(new Vector3(0, _jumpForce, 0), ForceMode.Impulse);
+            isGrounded = false;
+        }
+
+        private void ToggleSettingsMenu()
+        {
+            if (settingsMenu != null)
+            {
+                bool isActive = settingsMenu.activeSelf;
+                settingsMenu.SetActive(!isActive);
+                isMoving = isActive;
+            }
         }
     }
 }
