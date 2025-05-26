@@ -1,8 +1,9 @@
+using Photon.Pun;
+using Settings;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
-namespace Settings
+namespace Core.Network.Menu
 {
     public class SettingsManager : MonoBehaviour
     {
@@ -185,7 +186,7 @@ namespace Settings
         private void OnExitToMenuButtonClicked()
         {
             Time.timeScale = 1f;
-            SceneManager.LoadScene(0);
+            PhotonNetwork.LeaveRoom();
         }
 
         private void OnExitGameButtonClicked()
