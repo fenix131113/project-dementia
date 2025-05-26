@@ -83,6 +83,10 @@ MonoBehaviour:
   - MakeTransition_RPC
   - SetFirstPlayerOnPlate_RPC
   - SetSecondPlayerOnPlate_RPC
+  - ToggleFirst_RPC
+  - ToggleSecond_RPC
+  - ToggleFirst
+  - ToggleSecond
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

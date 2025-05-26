@@ -75,7 +75,11 @@ namespace Core.Network.Lobby
         }
 
         [PunRPC]
-        private void OpenElevator() => door.OpenDoor();
+        private void OpenElevator()
+        {
+            readyButton.SetInteractable(false);
+            door.OpenDoor();
+        }
 
         [PunRPC]
         private void CloseElevator() => door.CloseDoor();

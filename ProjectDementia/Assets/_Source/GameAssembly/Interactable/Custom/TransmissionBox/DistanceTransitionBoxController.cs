@@ -8,7 +8,7 @@ using VContainer;
 
 namespace Interactable.Custom.TransmissionBox
 {
-    public class TransmissionBoxController : MonoBehaviourPun
+    public class DistanceTransitionBoxController : MonoBehaviourPun
     {
         [SerializeField] private SelectedItemChecker firstChecker;
         [SerializeField] private SelectedItemChecker secondChecker;

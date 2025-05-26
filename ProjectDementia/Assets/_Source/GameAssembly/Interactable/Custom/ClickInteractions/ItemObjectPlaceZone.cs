@@ -28,6 +28,9 @@ namespace Interactable.Custom.ClickInteractions
         private InventoryItem _currentInventoryItem;
 
         public override event Action OnInteract;
+        /// <summary>
+        /// Called on both clients (network action)
+        /// </summary>
         public event Action<PickableItem> OnObjectPlaced;
 
         private void Start()
