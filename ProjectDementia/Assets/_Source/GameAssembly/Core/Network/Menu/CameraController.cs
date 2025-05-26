@@ -4,7 +4,12 @@ namespace Settings
 {
     public class CameraController : MonoBehaviour
     {
+        [Header("Mouse Settings")]
         public float sensitivity = 2.0f;
+        public float minSensitivity = 0.1f;
+        public float maxSensitivity = 10f;
+
+        [Header("References")]
         public Transform playerBody;
 
         private float xRotation = 0f;
@@ -23,13 +28,12 @@ namespace Settings
             xRotation = Mathf.Clamp(xRotation, -90f, 90f);
 
             transform.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
-
             playerBody.Rotate(Vector3.up * mouseX);
         }
 
-        public void SetSensitivity(float newSensitivity)
+        public void UpdateSensitivity(float newSensitivity)
         {
-            sensitivity = newSensitivity;
+            sensitivity = Mathf.Clamp(newSensitivity, minSensitivity, maxSensitivity);
         }
     }
 }

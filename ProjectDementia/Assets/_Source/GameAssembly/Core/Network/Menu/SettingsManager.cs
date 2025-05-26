@@ -4,19 +4,19 @@ using UnityEngine.SceneManagement;
 
 namespace Settings
 {
-    public class MenuManager : MonoBehaviour
+    public class SettingsManager : MonoBehaviour
     {
-        [Header("Panel")]
+        [Header("Panels")]
         public GameObject buttonsPanel;
         public GameObject settingsPanel;
         public GameObject confirmPanel;
 
-        [Header("Button")]
+        [Header("Buttons")]
         public Button saveSettingsButton;
         public Button exitToMenuButton;
         public Button exitGameButton;
-        public Button applySettingsButton; // Кнопка применения настроек
-        public Button continueButton; // Кнопка продолжения
+        public Button applySettingsButton;
+        public Button continueButton;
 
         [Header("Sliders")]
         public Slider fovSlider;
@@ -26,6 +26,7 @@ namespace Settings
         public Slider musicVolumeSlider;
 
         private Camera mainCamera;
+        private CameraController cameraController;
         private bool isButtonsPanelActive = false;
 
         private const string FOV_KEY = "FOV";
@@ -43,6 +44,7 @@ namespace Settings
         private void Start()
         {
             mainCamera = Camera.main;
+            cameraController = FindObjectOfType<CameraController>();
 
             LoadSettingsToMemory();
             LoadSlidersFromMemory();
@@ -51,28 +53,41 @@ namespace Settings
             saveSettingsButton.onClick.AddListener(OnSaveSettingsClicked);
             exitToMenuButton.onClick.AddListener(OnExitToMenuButtonClicked);
             exitGameButton.onClick.AddListener(OnExitGameButtonClicked);
-            applySettingsButton.onClick.AddListener(OnApplyConfirmed); // Подключаем кнопку применения настроек
-            continueButton.onClick.AddListener(OnContinueButtonClicked); // Подключаем кнопку продолжения
+            applySettingsButton.onClick.AddListener(OnApplyConfirmed);
+            continueButton.onClick.AddListener(OnContinueButtonClicked);
 
-            buttonsPanel.SetActive(false);
-            settingsPanel.SetActive(false);
-            confirmPanel.SetActive(false);
+            sensitivitySlider.onValueChanged.AddListener(UpdateSensitivityInRealTime);
+
+            SetAllPanels(false);
         }
 
         private void Update()
         {
             if (Input.GetKeyDown(KeyCode.Escape))
             {
-                ToggleButtonsPanel();
+                if (settingsPanel.activeSelf || confirmPanel.activeSelf)
+                {
+                    SetAllPanels(false);
+                    buttonsPanel.SetActive(true);
+                }
+                else
+                {
+                    ToggleButtonsPanel();
+                }
             }
+        }
+
+        private void SetAllPanels(bool state)
+        {
+            buttonsPanel.SetActive(state);
+            settingsPanel.SetActive(state);
+            confirmPanel.SetActive(state);
         }
 
         private void ToggleButtonsPanel()
         {
-            isButtonsPanelActive = !isButtonsPanelActive;
+            isButtonsPanelActive = !buttonsPanel.activeSelf;
             buttonsPanel.SetActive(isButtonsPanelActive);
-            settingsPanel.SetActive(false);
-            confirmPanel.SetActive(false);
 
             if (isButtonsPanelActive)
             {
@@ -110,7 +125,20 @@ namespace Settings
         {
             if (mainCamera != null)
             {
-                mainCamera.fieldOfView = fovSlider.value;
+                mainCamera.fieldOfView = savedFov;
+            }
+
+            if (cameraController != null)
+            {
+                cameraController.UpdateSensitivity(savedSensitivity);
+            }
+        }
+
+        private void UpdateSensitivityInRealTime(float newSensitivity)
+        {
+            if (cameraController != null)
+            {
+                cameraController.UpdateSensitivity(newSensitivity);
             }
         }
 
@@ -136,18 +164,19 @@ namespace Settings
 
             ApplySettings();
 
-            confirmPanel.SetActive(false); // Скрываем только панель подтверждения
+            confirmPanel.SetActive(false);
         }
 
         public void OnCancelConfirmed()
         {
             LoadSlidersFromMemory();
-            confirmPanel.SetActive(false); // Скрываем панель подтверждения
+            ApplySettings();
+            confirmPanel.SetActive(false);
         }
 
         private void OnContinueButtonClicked()
         {
-            buttonsPanel.SetActive(false); // Скрываем панель с кнопками
+            buttonsPanel.SetActive(false);
             Time.timeScale = 1f;
             Cursor.visible = false;
             Cursor.lockState = CursorLockMode.Locked;
