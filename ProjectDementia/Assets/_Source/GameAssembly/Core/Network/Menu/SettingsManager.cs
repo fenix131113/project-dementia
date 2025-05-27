@@ -1,6 +1,7 @@
 using Photon.Pun;
 using Settings;
 using UnityEngine;
+using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
 
 namespace Core.Network.Menu
