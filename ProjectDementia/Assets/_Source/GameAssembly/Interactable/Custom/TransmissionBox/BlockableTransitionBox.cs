@@ -62,6 +62,8 @@ namespace Interactable.Custom.TransmissionBox
         /// </summary>
         public void ClearCurrentItem() => CurrentItem = null;
 
+        public void ToggleBoxActivation(bool state) => itemObjectPlaceZone.gameObject.SetActive(state);
+
         public void ToggleFirst_RPC(bool open, bool openNext) =>
             photonView.RPC(nameof(ToggleFirst), RpcTarget.All, open, openNext);
 
@@ -110,7 +112,7 @@ namespace Interactable.Custom.TransmissionBox
             StartCoroutine(DoorToggleCoroutine(open));
         }
 
-        private void OnItemPlaced(PickableItem item)
+        private void OnItemPlaced(PickableItem item) // Called on both clients (network method)
         {
             CurrentItem = item;
             CurrentItem.SetInteractable(false);

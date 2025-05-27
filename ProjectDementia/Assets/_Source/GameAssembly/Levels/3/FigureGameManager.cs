@@ -39,7 +39,7 @@ namespace Levels._3
 
         private void CheckForNextPhase() // Called on both clients (network method)
         {
-            if (!_isFirstPlaced || !_isSecondPlaced || _currentPhaseIndex == phases.Count)
+            if (!_isFirstPlaced || !_isSecondPlaced || _currentPhaseIndex >= phases.Count)
                 return;
 
             var phaseCompleted = firstPlayerBox.CurrentItem &&
@@ -58,6 +58,13 @@ namespace Levels._3
                 _currentPhaseIndex++;
                 firstPlayerScreen.ResetScreen();
                 secondPlayerScreen.ResetScreen();
+                
+                if (_currentPhaseIndex >= phases.Count)
+                {
+                    firstPlayerBox.ToggleBoxActivation(false);
+                    secondPlayerBox.ToggleBoxActivation(false);
+                    return;
+                }
             }
             else
             {

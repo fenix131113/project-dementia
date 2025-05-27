@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Interactable.Custom.Lobby;
+using Interactable.Custom.Screens;
 using Photon.Pun;
 using UnityEngine;
 using VContainer;
@@ -9,7 +10,9 @@ namespace Core.Network.Lobby
     public class LevelSelectorManager : MonoBehaviourPun
     {
         [SerializeField] private List<LevelSelectorButton> levelSelectedButtons;
+        [SerializeField] private List<Material> levelsScreenMaterials;
         [SerializeField] private LevelSelectorButton startSelectedButton;
+        [SerializeField] private MaterialScreen levelIconScreen;
 
         [Inject] private ReadyManager _readyManager;
 
@@ -31,6 +34,7 @@ namespace Core.Network.Lobby
         {
             levelSelectedButtons.ForEach(x => x.DeactivateSelector());
             levelSelectedButtons[buttonIndex].ActivateSelector();
+            levelIconScreen.SetMaterial(levelsScreenMaterials[buttonIndex]);
             _readyManager.SetSelectedSceneToLoad(levelSelectedButtons[buttonIndex].LevelToLoadIndex);
         }
 

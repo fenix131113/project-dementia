@@ -7,7 +7,9 @@ namespace Interactable.Custom.Lobby
     public class LevelSelectorButton : AInteractableObject
     {
         [field: SerializeField] public int LevelToLoadIndex { get; private set; }
-        [SerializeField] private GameObject selectedSign;
+        [SerializeField] private MeshRenderer buttonRenderer;
+        [SerializeField] private Material defaultButtonMaterial;
+        [SerializeField] private Material activatedButtonMaterial;
         
         public override event Action OnInteract;
         public event Action<LevelSelectorButton> OnButtonClicked;
@@ -19,14 +21,8 @@ namespace Interactable.Custom.Lobby
             OnButtonClicked?.Invoke(this);
         }
         
-        public void ActivateSelector()
-        {
-            selectedSign.SetActive(true);
-        }
+        public void ActivateSelector() => buttonRenderer.material = activatedButtonMaterial;
 
-        public void DeactivateSelector()
-        {
-            selectedSign.SetActive(false);
-        }
+        public void DeactivateSelector() => buttonRenderer.material = defaultButtonMaterial;
     }
 }

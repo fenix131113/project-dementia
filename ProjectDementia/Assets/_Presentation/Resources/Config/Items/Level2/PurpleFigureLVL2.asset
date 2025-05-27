@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
   m_Name: PurpleFigureLVL2
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: Purple Figure
+  <ItemName>k__BackingField: "\u0424\u0438\u043E\u043B\u0435\u0442\u043E\u0432\u0430\u044F
+    \u0444\u0438\u0433\u0443\u0440\u043A\u0430"
   <Icon>k__BackingField: {fileID: 21300000, guid: 44ebd8e6f42cae445ab4b22f0a9b48a0, type: 3}
-  <Prefab>k__BackingField: {fileID: 5739189799136008539, guid: f2c0012150814ea468e602aab12b2f06, type: 3}
+  <Prefab>k__BackingField: {fileID: 5810518210292567748, guid: f2c0012150814ea468e602aab12b2f06, type: 3}
   <AdditionalFolderPath>k__BackingField: Level2

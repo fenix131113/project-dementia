@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
   m_Name: RedFigureLVL2
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: Red Figure
+  <ItemName>k__BackingField: "\u041A\u0440\u0430\u0441\u043D\u0430\u044F \u0444\u0438\u0433\u0443\u0440\u043A\u0430"
   <Icon>k__BackingField: {fileID: 21300000, guid: 44ebd8e6f42cae445ab4b22f0a9b48a0, type: 3}
-  <Prefab>k__BackingField: {fileID: 614051501244749982, guid: dedb9d9ef35d31a42bd96bb934168216, type: 3}
+  <Prefab>k__BackingField: {fileID: 2476599090434217284, guid: dedb9d9ef35d31a42bd96bb934168216, type: 3}
   <AdditionalFolderPath>k__BackingField: Level2

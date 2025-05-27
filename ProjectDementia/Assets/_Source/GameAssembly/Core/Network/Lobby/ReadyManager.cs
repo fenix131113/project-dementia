@@ -1,5 +1,4 @@
 ﻿using DG.Tweening;
-using Interactable.Custom;
 using Interactable.Custom.ClickInteractions;
 using Interactable.Custom.Screens;
 using Levels;
@@ -15,8 +14,6 @@ namespace Core.Network.Lobby
     {
         [SerializeField] private PhotonView photonView;
         [SerializeField] private Image loadFadeScreen;
-        [SerializeField] private Lamp inactiveLamp;
-        [SerializeField] private Lamp activeLamp;
         [SerializeField] private TextScreen firstPlayerTextScreen;
         [SerializeField] private TextScreen secondPlayerTextScreen;
         [SerializeField] private Color readyColor = Color.green;
@@ -35,17 +32,6 @@ namespace Core.Network.Lobby
 
         private void OnReadyButtonClicked()
         {
-            if (readyButton.IsPressed)
-            {
-                activeLamp.Activate();
-                inactiveLamp.Deactivate();
-            }
-            else
-            {
-                inactiveLamp.Activate();
-                activeLamp.Deactivate();
-            }
-
             photonView.RPC(nameof(RPC_SetPlayerReady), RpcTarget.All, readyButton.IsPressed,
                 PhotonNetwork.LocalPlayer.ActorNumber);
             if (_firstPlayerReady && _secondPlayerReady)

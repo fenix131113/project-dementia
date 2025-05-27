@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
   m_Name: BlueFigureLVL2
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: Blue Figure
+  <ItemName>k__BackingField: "\u0421\u0438\u043D\u044F\u044F \u0444\u0438\u0433\u0443\u0440\u043A\u0430"
   <Icon>k__BackingField: {fileID: 21300000, guid: 44ebd8e6f42cae445ab4b22f0a9b48a0, type: 3}
-  <Prefab>k__BackingField: {fileID: 6483478448168181453, guid: cc9238ff17037ec4ca4c38cc33146ec4, type: 3}
+  <Prefab>k__BackingField: {fileID: 2226493104042245630, guid: cc9238ff17037ec4ca4c38cc33146ec4, type: 3}
   <AdditionalFolderPath>k__BackingField: Level2
