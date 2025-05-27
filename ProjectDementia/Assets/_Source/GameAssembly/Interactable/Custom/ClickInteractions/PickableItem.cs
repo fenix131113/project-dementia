@@ -32,6 +32,8 @@ namespace Interactable.Custom.ClickInteractions
             _itemsContainer = itemsContainer;
         }
 
+        private void OnDestroy() => OnInteract = null;
+
         /// <summary>
         /// Replace custom data with given
         /// </summary>

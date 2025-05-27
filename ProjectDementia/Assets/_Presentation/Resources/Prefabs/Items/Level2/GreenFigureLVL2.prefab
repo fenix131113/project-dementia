@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6590584605085570912}
   - component: {fileID: 2868677069550940692}
   m_Layer: 6
-  m_Name: GreenFigure
+  m_Name: GreenFigureLVL2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

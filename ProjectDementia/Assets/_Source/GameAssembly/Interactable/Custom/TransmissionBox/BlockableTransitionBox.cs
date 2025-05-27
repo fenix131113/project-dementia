@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DG.Tweening;
 using Interactable.Custom.ClickInteractions;
 using Photon.Pun;
@@ -28,6 +29,9 @@ namespace Interactable.Custom.TransmissionBox
         [SerializeField] private Transform secondDoorL;
 
         private bool _firstOpened;
+        private Sequence _currentAnim;
+
+        public event Action OnItemPlacedEvent;
 
         private void Start()
         {
@@ -37,9 +41,9 @@ namespace Interactable.Custom.TransmissionBox
                 return;
 
             if (firstOpen)
-                ToggleFirst_RPC(true);
+                ToggleFirst_RPC(true, false);
             else
-                ToggleSecond_RPC(true);
+                ToggleSecond_RPC(true, false);
         }
 
         private void OnDestroy() => Expose();
@@ -58,24 +62,52 @@ namespace Interactable.Custom.TransmissionBox
         /// </summary>
         public void ClearCurrentItem() => CurrentItem = null;
 
-        public void ToggleFirst_RPC(bool open) => photonView.RPC(nameof(ToggleFirst), RpcTarget.All, open);
+        public void ToggleFirst_RPC(bool open, bool openNext) =>
+            photonView.RPC(nameof(ToggleFirst), RpcTarget.All, open, openNext);
 
-        public void ToggleSecond_RPC(bool open) => photonView.RPC(nameof(ToggleSecond), RpcTarget.All, open);
+        public void ToggleSecond_RPC(bool open, bool openNext) =>
+            photonView.RPC(nameof(ToggleSecond), RpcTarget.All, open, openNext);
 
         [PunRPC]
-        public void ToggleFirst(bool open)
+        public void ToggleFirst(bool open, bool openNext)
         {
-            firstDoorR.DORotate(open ? new Vector3(0, openDegrees, 0) : Vector3.zero, openCloseTime);
-            firstDoorL.DORotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero, openCloseTime);
+            _currentAnim.Kill();
+            _currentAnim = DOTween.Sequence();
+            _currentAnim.Append(
+                firstDoorR.DORotate(open ? new Vector3(0, openDegrees, 0) : Vector3.zero, openCloseTime));
+            _currentAnim.Insert(0,
+                firstDoorL.DORotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero, openCloseTime));
             _firstOpened = open;
+
+            if (!openNext && open)
+                StartCoroutine(AllowTakeItemCoroutine());
+
+            if (!openNext)
+                return;
+
+            CurrentItem?.SetInteractable(false);
+            StartCoroutine(DoorToggleCoroutine(!open));
         }
 
         [PunRPC]
-        public void ToggleSecond(bool open)
+        public void ToggleSecond(bool open, bool openNext)
         {
-            secondDoorR.DORotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero, openCloseTime);
-            secondDoorL.DORotate(open ? new Vector3(0, openDegrees, 0) : Vector3.zero, openCloseTime);
+            _currentAnim.Kill();
+            _currentAnim = DOTween.Sequence();
+            _currentAnim.Append(secondDoorR.DORotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero,
+                openCloseTime));
+            _currentAnim.Insert(0,
+                secondDoorL.DORotate(open ? new Vector3(0, openDegrees, 0) : Vector3.zero, openCloseTime));
             _firstOpened = !open;
+
+            if (!openNext && open)
+                StartCoroutine(AllowTakeItemCoroutine());
+
+            if (!openNext)
+                return;
+
+            CurrentItem?.SetInteractable(false);
+            StartCoroutine(DoorToggleCoroutine(open));
         }
 
         private void OnItemPlaced(PickableItem item)
@@ -86,12 +118,11 @@ namespace Interactable.Custom.TransmissionBox
             var temp = _firstOpened;
 
             if (temp)
-                ToggleFirst_RPC(false);
+                ToggleFirst(false, openInstantly);
             else
-                ToggleSecond_RPC(false);
+                ToggleSecond(false, openInstantly);
 
-            if (openInstantly)
-                StartCoroutine(DoorToggleCoroutine(temp));
+            OnItemPlacedEvent?.Invoke();
         }
 
         private void Bind() => itemObjectPlaceZone.OnObjectPlaced += OnItemPlaced;
@@ -101,16 +132,20 @@ namespace Interactable.Custom.TransmissionBox
         private IEnumerator DoorToggleCoroutine(bool firstOpened)
         {
             yield return new WaitForSeconds(openCloseTime);
-
+            
             if (firstOpened)
-                ToggleSecond_RPC(true);
+                ToggleSecond(true, false);
             else
-                ToggleFirst_RPC(true);
+                ToggleFirst(true, false);
 
+            StartCoroutine(AllowTakeItemCoroutine());
+        }
+
+        private IEnumerator AllowTakeItemCoroutine()
+        {
             yield return new WaitForSeconds(openCloseTime);
 
-            CurrentItem.SetInteractable(true);
-            ClearCurrentItem();
+            CurrentItem?.SetInteractable(true);
         }
     }
 }

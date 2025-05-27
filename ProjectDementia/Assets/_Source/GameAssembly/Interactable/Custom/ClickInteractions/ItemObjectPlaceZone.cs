@@ -28,6 +28,7 @@ namespace Interactable.Custom.ClickInteractions
         private InventoryItem _currentInventoryItem;
 
         public override event Action OnInteract;
+        
         /// <summary>
         /// Called on both clients (network action)
         /// </summary>
@@ -96,7 +97,7 @@ namespace Interactable.Custom.ClickInteractions
                 return;
 
             var spawnPos = transform.position;
-            var spawnRot = Quaternion.identity;
+            var spawnRot = transform.rotation;
 
             if (placeZoneObjectOffsets.Any(x =>
                     x.Items.Any(y => _itemsContainer.GetItemBySO(y).ID == _currentInventoryItem.Item.ID)))

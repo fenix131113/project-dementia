@@ -16,8 +16,6 @@ namespace Interactable.Base
 
         public abstract event Action OnInteract;
 
-        //public void RPC_Interact(RpcTarget target) => PhotonView.RPC(nameof(Interact), target);
-
         [PunRPC]
         public virtual void Interact()
         {

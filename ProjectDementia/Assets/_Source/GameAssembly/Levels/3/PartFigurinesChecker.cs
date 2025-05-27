@@ -4,9 +4,9 @@ using ItemsSystem.Data;
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace Levels._2
+namespace Levels._3
 {
-    public class FigurinesChecker : MonoBehaviour
+    public class PartFigurinesChecker : MonoBehaviour
     {
         [SerializeField] private List<ItemObjectPlaceZone> firstPlayerZones;
         [SerializeField] private List<ItemObjectPlaceZone> secondPlayerZones;

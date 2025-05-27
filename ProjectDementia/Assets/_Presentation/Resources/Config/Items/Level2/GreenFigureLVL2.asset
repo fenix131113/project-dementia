@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
-  m_Name: OrangeFigure
+  m_Name: GreenFigureLVL2
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: Orange Figure
-  <Icon>k__BackingField: {fileID: 21300000, guid: 936345f7fc3934efa8119a8700d904c7, type: 3}
-  <Prefab>k__BackingField: {fileID: 6958438209550725158, guid: 58bb8734a4da33847a88ac57c2ae4680, type: 3}
+  <ItemName>k__BackingField: Green Figure
+  <Icon>k__BackingField: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
+  <Prefab>k__BackingField: {fileID: 2868677069550940692, guid: 9495196a5ca317e439ec3af383024ee7, type: 3}
   <AdditionalFolderPath>k__BackingField: Level2

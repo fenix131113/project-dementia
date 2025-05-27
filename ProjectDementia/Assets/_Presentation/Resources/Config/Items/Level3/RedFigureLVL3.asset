@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
-  m_Name: YellowFigure
+  m_Name: RedFigureLVL3
   m_EditorClassIdentifier: 
-  <ItemName>k__BackingField: Yellow Figure
+  <ItemName>k__BackingField: "\u041A\u0440\u0430\u0441\u043D\u0430\u044F \u0444\u0438\u0433\u0443\u0440\u0430"
   <Icon>k__BackingField: {fileID: 21300000, guid: 5a0a11df3915f7b448cf5f4266da3aa3, type: 3}
-  <Prefab>k__BackingField: {fileID: 1866374952808251636, guid: 69fee670a5813af4b8566f1583d4f0c8, type: 3}
-  <AdditionalFolderPath>k__BackingField: Level2
+  <Prefab>k__BackingField: {fileID: 381827785666121448, guid: 1cc66a49233efe247bd0c4e1b1024875, type: 3}
+  <AdditionalFolderPath>k__BackingField: Level3
