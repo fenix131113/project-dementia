@@ -9,19 +9,26 @@ namespace ChatSystem
     {
         private static Dictionary<string, List<string>> categoryWords = new();
         private static HashSet<string> dictionary = new();
+        
+        private static bool _isInitialized = false;
 
-        public static void Load(string dictPath, string categoryDir)
+        public static void Load(string dictPath)
         {
+            if (_isInitialized)
+                return;
+
+            _isInitialized = true;
+            
             dictionary = File.ReadAllLines(dictPath)
                 .Select(w => WordFixer.Normalize(w.Trim())).ToHashSet();
 
-            categoryWords.Clear();
-            foreach (var file in Directory.GetFiles(categoryDir, "*.txt"))
-            {
-                var categoryName = Path.GetFileNameWithoutExtension(file);
-                categoryWords[categoryName] = File.ReadAllLines(file)
-                    .Select(w => WordFixer.Normalize(w.Trim())).ToList();
-            }
+            // categoryWords.Clear();
+            // foreach (var file in Directory.GetFiles(categoryDir, "*.txt"))
+            // {
+            //     var categoryName = Path.GetFileNameWithoutExtension(file);
+            //     categoryWords[categoryName] = File.ReadAllLines(file)
+            //         .Select(w => WordFixer.Normalize(w.Trim())).ToList();
+            // }
         }
 
         public static string ApplyFilter(string input, List<string> activeCategories)
@@ -33,7 +40,7 @@ namespace ChatSystem
             {
                 var normalized = WordFixer.Normalize(word);
                 if (activeCategories.Any(cat => categoryWords.ContainsKey(cat) && categoryWords[cat].Contains(normalized)))
-                    continue; // запрещённое слово
+                    continue; // Р·Р°РїСЂРµС‰С‘РЅРЅРѕРµ СЃР»РѕРІРѕ
                 result.Add(word);
             }
 

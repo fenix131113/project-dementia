@@ -5601,6 +5601,7 @@ GameObject:
   - component: {fileID: 3628699025022139203}
   - component: {fileID: 4665494465497488017}
   - component: {fileID: 4039329682909295379}
+  - component: {fileID: 4467339611019470754}
   m_Layer: 7
   m_Name: PlayerPrefab
   m_TagString: Untagged
@@ -5806,6 +5807,19 @@ MonoBehaviour:
   - {fileID: 1121387619663629245}
   headPivot: {fileID: 9015387004452891809}
   headRotateLimit: 45
+--- !u!114 &4467339611019470754
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7423423548461046355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 898f311983bee1946b3f4c0459e460e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentFilters: []
 --- !u!1 &7474015600158356231
 GameObject:
   m_ObjectHideFlags: 0
