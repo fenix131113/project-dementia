@@ -141231,9 +141231,25 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2016756428}
     m_Modifications:
+    - target: {fileID: 258283243811835714, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 470491965429184601, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_text
+      value: "\u0412\u0432\u0435\u0434\u0438\u0442\u0435 \u0442\u0435\u043A\u0441\u0442..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 812620104828442082, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 848991164750381967, guid: 937eb3687e238044f8129119168f2852, type: 3}
       propertyPath: sceneViewId
       value: 64
+      objectReference: {fileID: 0}
+    - target: {fileID: 1890790803118028886, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2080855065946486592, guid: 937eb3687e238044f8129119168f2852, type: 3}
       propertyPath: m_LocalPosition.x
@@ -141275,6 +141291,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2499009749610145551, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2682059922961498765, guid: 937eb3687e238044f8129119168f2852, type: 3}
       propertyPath: 'autoInjectGameObjects.Array.data[0]'
       value: 
@@ -141303,6 +141323,22 @@ PrefabInstance:
       propertyPath: m_Name
       value: '---[LEVEL_SETUP]'
       objectReference: {fileID: 0}
+    - target: {fileID: 4558831508955263255, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5218309704897445245, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5557164367693924725, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6845520680309810095, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6872176765273967338, guid: 937eb3687e238044f8129119168f2852, type: 3}
       propertyPath: firstSpawnPoint
       value: 
@@ -141314,6 +141350,14 @@ PrefabInstance:
     - target: {fileID: 7942764919950857020, guid: 937eb3687e238044f8129119168f2852, type: 3}
       propertyPath: sceneViewId
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 8942844091920913863, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9162511529523087421, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
