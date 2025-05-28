@@ -73,8 +73,9 @@ namespace ChatSystem
 
         private static bool IsGarbage(string word)
         {
-            return word.Length < 3 || word.Count(char.IsLetter) < word.Length / 2;
+            return (word.Length <= 2 && !dictionary.Contains(word)) || word.Count(char.IsLetter) < word.Length / 2;
         }
+
 
         private static string? FindClosest(string word)
         {
