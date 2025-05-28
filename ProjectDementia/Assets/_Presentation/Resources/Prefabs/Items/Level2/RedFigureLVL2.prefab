@@ -442,5 +442,5 @@ MonoBehaviour:
   onInteractEvent:
     m_PersistentCalls:
       m_Calls: []
-  <Item>k__BackingField: {fileID: 11400000, guid: 57625fa82541ea94bb4ed433c0e75dc5, type: 2}
+  <Item>k__BackingField: {fileID: 11400000, guid: 25fee7a30bc553a48850705c96bfd3b3, type: 2}
   customItemData: []

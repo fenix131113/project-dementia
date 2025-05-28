@@ -29,6 +29,7 @@ namespace Interactable.Custom.TransmissionBox
         [SerializeField] private Transform secondDoorL;
 
         private bool _firstOpened;
+        private bool _secondOpened;
         private Sequence _currentAnim;
 
         public event Action OnItemPlacedEvent;
@@ -41,9 +42,9 @@ namespace Interactable.Custom.TransmissionBox
                 return;
 
             if (firstOpen)
-                ToggleFirst_RPC(true, false);
+                ToggleFirst(true, false);
             else
-                ToggleSecond_RPC(true, false);
+                ToggleSecond(true, false);
         }
 
         private void OnDestroy() => Expose();
@@ -76,9 +77,11 @@ namespace Interactable.Custom.TransmissionBox
             _currentAnim.Kill();
             _currentAnim = DOTween.Sequence();
             _currentAnim.Append(
-                firstDoorR.DORotate(open ? new Vector3(0, openDegrees, 0) : Vector3.zero, openCloseTime));
+                firstDoorR.DOLocalRotate(open ? new Vector3(0, openDegrees, 0) : Vector3.zero,
+                    openCloseTime));
             _currentAnim.Insert(0,
-                firstDoorL.DORotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero, openCloseTime));
+                firstDoorL.DOLocalRotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero,
+                    openCloseTime));
             _firstOpened = open;
 
             if (!openNext && open)
@@ -88,7 +91,7 @@ namespace Interactable.Custom.TransmissionBox
                 return;
 
             CurrentItem?.SetInteractable(false);
-            StartCoroutine(DoorToggleCoroutine(!open));
+            StartCoroutine(SecondDoorToggleCoroutine(!open));
         }
 
         [PunRPC]
@@ -96,11 +99,13 @@ namespace Interactable.Custom.TransmissionBox
         {
             _currentAnim.Kill();
             _currentAnim = DOTween.Sequence();
-            _currentAnim.Append(secondDoorR.DORotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero,
+            _currentAnim.Append(secondDoorR.DOLocalRotate(
+                open ? new Vector3(0, openDegrees, 0) : Vector3.zero,
                 openCloseTime));
             _currentAnim.Insert(0,
-                secondDoorL.DORotate(open ? new Vector3(0, openDegrees, 0) : Vector3.zero, openCloseTime));
-            _firstOpened = !open;
+                secondDoorL.DOLocalRotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero,
+                    openCloseTime));
+            _secondOpened = open;
 
             if (!openNext && open)
                 StartCoroutine(AllowTakeItemCoroutine());
@@ -109,7 +114,7 @@ namespace Interactable.Custom.TransmissionBox
                 return;
 
             CurrentItem?.SetInteractable(false);
-            StartCoroutine(DoorToggleCoroutine(open));
+            StartCoroutine(FirstDoorToggleCoroutine(!open));
         }
 
         private void OnItemPlaced(PickableItem item) // Called on both clients (network method)
@@ -117,9 +122,7 @@ namespace Interactable.Custom.TransmissionBox
             CurrentItem = item;
             CurrentItem.SetInteractable(false);
 
-            var temp = _firstOpened;
-
-            if (temp)
+            if (_firstOpened)
                 ToggleFirst(false, openInstantly);
             else
                 ToggleSecond(false, openInstantly);
@@ -131,14 +134,20 @@ namespace Interactable.Custom.TransmissionBox
 
         private void Expose() => itemObjectPlaceZone.OnObjectPlaced -= OnItemPlaced;
 
-        private IEnumerator DoorToggleCoroutine(bool firstOpened)
+        private IEnumerator FirstDoorToggleCoroutine(bool open)
         {
             yield return new WaitForSeconds(openCloseTime);
-            
-            if (firstOpened)
-                ToggleSecond(true, false);
-            else
-                ToggleFirst(true, false);
+
+            ToggleFirst(open, false);
+
+            StartCoroutine(AllowTakeItemCoroutine());
+        }
+
+        private IEnumerator SecondDoorToggleCoroutine(bool open)
+        {
+            yield return new WaitForSeconds(openCloseTime);
+
+            ToggleSecond(open, false);
 
             StartCoroutine(AllowTakeItemCoroutine());
         }

@@ -356,7 +356,7 @@ MonoBehaviour:
   onInteractEvent:
     m_PersistentCalls:
       m_Calls: []
-  <Item>k__BackingField: {fileID: 11400000, guid: 57625fa82541ea94bb4ed433c0e75dc5, type: 2}
+  <Item>k__BackingField: {fileID: 11400000, guid: 0c5ba401644aac8418952871f9ac0f19, type: 2}
   customItemData: []
 --- !u!1 &9136117814254278889
 GameObject:

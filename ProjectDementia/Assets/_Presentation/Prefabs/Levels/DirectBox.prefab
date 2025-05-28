@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 8070654875448718986}
   - component: {fileID: 5869167416777924215}
   m_Layer: 0
-  m_Name: pCylinder2
+  m_Name: DoorRPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -202,7 +202,8 @@ Transform:
   m_LocalPosition: {x: -0.05717247, y: 0.105713196, z: -0.22846717}
   m_LocalScale: {x: 10.662829, y: 10.662829, z: 10.662829}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4600275612346900729}
   m_Father: {fileID: 770442689750001629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8070654875448718986
@@ -272,6 +273,7 @@ GameObject:
   - component: {fileID: 2042033935396050132}
   - component: {fileID: 8303960570947938206}
   - component: {fileID: 3951734435404113458}
+  - component: {fileID: 4798071747307179848}
   m_Layer: 0
   m_Name: DirectBox
   m_TagString: Untagged
@@ -399,10 +401,32 @@ MonoBehaviour:
   openOnStart: 1
   firstOpen: 1
   openInstantly: 1
-  firstDoorR: {fileID: 4050353815041705825}
-  firstDoorL: {fileID: 5379931796580933044}
-  secondDoorR: {fileID: 4600275612346900729}
-  secondDoorL: {fileID: 1508670023948907536}
+  firstDoorR: {fileID: 660072023756064950}
+  firstDoorL: {fileID: 187398386232656288}
+  secondDoorR: {fileID: 959541068166187768}
+  secondDoorL: {fileID: 5651469980984555544}
+--- !u!114 &4798071747307179848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2063527608142514775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &2207955160239631891
 GameObject:
   m_ObjectHideFlags: 0
@@ -517,11 +541,11 @@ Transform:
   m_GameObject: {fileID: 2214482347146849842}
   serializedVersion: 2
   m_LocalRotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -1.6155446e-15}
-  m_LocalPosition: {x: -0.057103194, y: 0.23571888, z: -0.22806823}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.012192427, z: 0.00003741351}
+  m_LocalScale: {x: 0.093783736, y: 0.093783736, z: 0.093783736}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 770442689750001629}
+  m_Father: {fileID: 959541068166187768}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &825643136012851052
 MeshFilter:
@@ -609,7 +633,7 @@ GameObject:
   - component: {fileID: 630550475668938930}
   - component: {fileID: 2671615152666646929}
   m_Layer: 0
-  m_Name: pCylinder5
+  m_Name: DoorLPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -627,7 +651,8 @@ Transform:
   m_LocalPosition: {x: 0.48866913, y: 0.105713196, z: -0.22846717}
   m_LocalScale: {x: 10.662829, y: 10.662829, z: 10.662829}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 1508670023948907536}
   m_Father: {fileID: 770442689750001629}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &630550475668938930
@@ -867,7 +892,7 @@ GameObject:
   - component: {fileID: 3357778926902190683}
   - component: {fileID: 51784186254656710}
   m_Layer: 0
-  m_Name: pCylinder5
+  m_Name: DoorLPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -885,7 +910,8 @@ Transform:
   m_LocalPosition: {x: 0.2727774, y: -0.13000579, z: -0.2313343}
   m_LocalScale: {x: 10.662829, y: 10.662829, z: 10.662829}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5379931796580933044}
   m_Father: {fileID: 3984283179055424988}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3357778926902190683
@@ -971,11 +997,9 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 589599541812067892}
-  - {fileID: 5379931796580933044}
-  - {fileID: 4050353815041705825}
   - {fileID: 660072023756064950}
-  - {fileID: 173003781335701330}
   - {fileID: 187398386232656288}
+  - {fileID: 173003781335701330}
   - {fileID: 2283016812777654198}
   m_Father: {fileID: 6010775047172883318}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1009,10 +1033,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7920662516807777400}
-  - {fileID: 1508670023948907536}
-  - {fileID: 4600275612346900729}
-  - {fileID: 959541068166187768}
   - {fileID: 1277972771930446545}
+  - {fileID: 959541068166187768}
   - {fileID: 5651469980984555544}
   - {fileID: 2333361456579196397}
   m_Father: {fileID: 6010775047172883318}
@@ -1045,11 +1067,11 @@ Transform:
   m_GameObject: {fileID: 4777918286271834036}
   serializedVersion: 2
   m_LocalRotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: 9.494107e-16}
-  m_LocalPosition: {x: 0.272995, y: -0.016930928, z: -0.23093536}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.000020434049, y: 0.010604572, z: 0.000037410715}
+  m_LocalScale: {x: 0.093783736, y: 0.093783736, z: 0.093783736}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3984283179055424988}
+  m_Father: {fileID: 187398386232656288}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &3885395861453495613
 MeshFilter:
@@ -1153,11 +1175,11 @@ Transform:
   m_GameObject: {fileID: 5035367061559552558}
   serializedVersion: 2
   m_LocalRotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: 9.494107e-16}
-  m_LocalPosition: {x: 0.48888674, y: 0.21878798, z: -0.22806823}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.000020389329, y: 0.010604569, z: 0.00003741351}
+  m_LocalScale: {x: 0.093783736, y: 0.093783736, z: 0.093783736}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 770442689750001629}
+  m_Father: {fileID: 5651469980984555544}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &8129279208861032624
 MeshFilter:
@@ -1245,7 +1267,7 @@ GameObject:
   - component: {fileID: 7152753735499849080}
   - component: {fileID: 7194865635852536345}
   m_Layer: 0
-  m_Name: pCylinder2
+  m_Name: DoorRPivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1263,7 +1285,8 @@ Transform:
   m_LocalPosition: {x: -0.2730642, y: -0.13000579, z: -0.2313343}
   m_LocalScale: {x: 10.662829, y: 10.662829, z: 10.662829}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 4050353815041705825}
   m_Father: {fileID: 3984283179055424988}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7152753735499849080
@@ -1347,7 +1370,7 @@ Transform:
   m_GameObject: {fileID: 6039641473196545178}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.22463655, z: 0}
+  m_LocalPosition: {x: 0, y: -0.2436, z: 0}
   m_LocalScale: {x: 0.3238053, y: 0.4492731, z: 0.3238053}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1373,7 +1396,7 @@ BoxCollider:
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0.47, z: 0}
+  m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &1640719447704820146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1532,11 +1555,11 @@ Transform:
   m_GameObject: {fileID: 8238189722885477350}
   serializedVersion: 2
   m_LocalRotation: {x: 6.123234e-17, y: 1, z: -6.123234e-17, w: -1.6155446e-15}
-  m_LocalPosition: {x: -0.272995, y: -0.000000046433406, z: -0.23093538}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0, y: 0.012192429, z: 0.000037410715}
+  m_LocalScale: {x: 0.093783736, y: 0.093783736, z: 0.093783736}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 3984283179055424988}
+  m_Father: {fileID: 660072023756064950}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &2694409688249385980
 MeshFilter:

@@ -1280,7 +1280,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3662648937876976, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3662648937876976, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
+      propertyPath: <LevelToLoadIndex>k__BackingField
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2577084363110765588, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
       propertyPath: m_Mesh
@@ -1288,7 +1292,7 @@ PrefabInstance:
       objectReference: {fileID: -8097860741330282927, guid: 110792573527fd246a0222aa2d964d68, type: 3}
     - target: {fileID: 4776989818644362311, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4776989818644362311, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
       propertyPath: sceneViewId
@@ -1300,7 +1304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7878696491155744864, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9204822287878860150, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
       propertyPath: m_LocalPosition.x
