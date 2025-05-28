@@ -1,8 +1,8 @@
 using Photon.Pun;
 using Settings;
 using UnityEngine;
-using UnityEngine.SocialPlatforms;
 using UnityEngine.UI;
+using TMPro;
 
 namespace Core.Network.Menu
 {
@@ -26,6 +26,13 @@ namespace Core.Network.Menu
         public Slider overallVolumeSlider;
         public Slider soundVolumeSlider;
         public Slider musicVolumeSlider;
+
+        [Header("Slider Values")]
+        public TMP_Text fovValueText;
+        public TMP_Text sensitivityValueText;
+        public TMP_Text overallVolumeValueText;
+        public TMP_Text soundVolumeValueText;
+        public TMP_Text musicVolumeValueText;
 
         private Camera mainCamera;
         private CameraController cameraController;
@@ -59,6 +66,12 @@ namespace Core.Network.Menu
             continueButton.onClick.AddListener(OnContinueButtonClicked);
 
             sensitivitySlider.onValueChanged.AddListener(UpdateSensitivityInRealTime);
+
+            fovSlider.onValueChanged.AddListener(value => fovValueText.text = Mathf.RoundToInt(value).ToString());
+            sensitivitySlider.onValueChanged.AddListener(value => sensitivityValueText.text = Mathf.RoundToInt(value).ToString());
+            overallVolumeSlider.onValueChanged.AddListener(value => overallVolumeValueText.text = Mathf.RoundToInt(value).ToString());
+            soundVolumeSlider.onValueChanged.AddListener(value => soundVolumeValueText.text = Mathf.RoundToInt(value).ToString());
+            musicVolumeSlider.onValueChanged.AddListener(value => musicVolumeValueText.text = Mathf.RoundToInt(value).ToString());
 
             SetAllPanels(false);
         }
@@ -121,6 +134,12 @@ namespace Core.Network.Menu
             overallVolumeSlider.value = savedOverallVolume;
             soundVolumeSlider.value = savedSoundVolume;
             musicVolumeSlider.value = savedMusicVolume;
+
+            fovValueText.text = Mathf.RoundToInt(savedFov).ToString();
+            sensitivityValueText.text = Mathf.RoundToInt(savedSensitivity).ToString();
+            overallVolumeValueText.text = Mathf.RoundToInt(savedOverallVolume).ToString();
+            soundVolumeValueText.text = Mathf.RoundToInt(savedSoundVolume).ToString();
+            musicVolumeValueText.text = Mathf.RoundToInt(savedMusicVolume).ToString();
         }
 
         private void ApplySettings()
