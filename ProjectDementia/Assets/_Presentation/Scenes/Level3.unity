@@ -129,7 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3602219}
   m_Layer: 0
-  m_Name: DoorR.001Pivot
+  m_Name: DoorL.001Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -448,8 +448,8 @@ MonoBehaviour:
   openInstantly: 0
   firstDoorR: {fileID: 976299142}
   firstDoorL: {fileID: 1566974130}
-  secondDoorR: {fileID: 1084205172}
-  secondDoorL: {fileID: 1346440336}
+  secondDoorR: {fileID: 1346440336}
+  secondDoorL: {fileID: 1084205172}
 --- !u!1001 &269813857
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1900,8 +1900,8 @@ MonoBehaviour:
   openInstantly: 0
   firstDoorR: {fileID: 2020669020}
   firstDoorL: {fileID: 1247381661}
-  secondDoorR: {fileID: 3602219}
-  secondDoorL: {fileID: 1080706154}
+  secondDoorR: {fileID: 1080706154}
+  secondDoorL: {fileID: 3602219}
 --- !u!1 &906707634
 GameObject:
   m_ObjectHideFlags: 0
@@ -2618,7 +2618,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1080706154}
   m_Layer: 0
-  m_Name: DoorL.002Pivot
+  m_Name: DoorR.002Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2650,7 +2650,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1084205172}
   m_Layer: 0
-  m_Name: DoorR.001Pivot
+  m_Name: DoorL.001Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3362,7 +3362,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1346440336}
   m_Layer: 0
-  m_Name: DoorL.002Pivot
+  m_Name: DoorR.002Pivot
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

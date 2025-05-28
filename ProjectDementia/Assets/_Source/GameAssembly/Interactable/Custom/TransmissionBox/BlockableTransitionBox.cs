@@ -29,7 +29,6 @@ namespace Interactable.Custom.TransmissionBox
         [SerializeField] private Transform secondDoorL;
 
         private bool _firstOpened;
-        private bool _secondOpened;
         private Sequence _currentAnim;
 
         public event Action OnItemPlacedEvent;
@@ -105,7 +104,6 @@ namespace Interactable.Custom.TransmissionBox
             _currentAnim.Insert(0,
                 secondDoorL.DOLocalRotate(open ? new Vector3(0, -openDegrees, 0) : Vector3.zero,
                     openCloseTime));
-            _secondOpened = open;
 
             if (!openNext && open)
                 StartCoroutine(AllowTakeItemCoroutine());
