@@ -12,6 +12,8 @@ namespace Settings
         [Header("References")]
         public Transform playerBody;
 
+        public bool CanRotate { get; set; } = true;
+
         private float xRotation = 0f;
 
         private void Start()
@@ -21,6 +23,8 @@ namespace Settings
 
         private void Update()
         {
+            if (!CanRotate) return;
+
             float mouseX = Input.GetAxis("Mouse X") * sensitivity;
             float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
 

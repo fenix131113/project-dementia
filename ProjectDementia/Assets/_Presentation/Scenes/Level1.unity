@@ -108777,6 +108777,26 @@ PrefabInstance:
       propertyPath: secondSpawnPoint
       value: 
       objectReference: {fileID: 1722986548}
+    - target: {fileID: 7766485194412322125, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766485194412322125, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766485194412322125, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766485194412322125, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7766485194412322125, guid: 937eb3687e238044f8129119168f2852, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7942764919950857020, guid: 937eb3687e238044f8129119168f2852, type: 3}
       propertyPath: sceneViewId
       value: 10
