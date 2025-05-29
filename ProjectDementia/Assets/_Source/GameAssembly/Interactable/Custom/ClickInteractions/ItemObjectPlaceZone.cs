@@ -19,6 +19,7 @@ namespace Interactable.Custom.ClickInteractions
         [SerializeField] private Collider touchCollider;
         [SerializeField] private bool anyObjectAccept = true;
         [SerializeField] private ItemSO[] allowedItems;
+        [SerializeField] private ItemSO[] blacklistItems;
         [SerializeField] private PlaceZoneObjectOffset[] placeZoneObjectOffsets;
 
         [Inject] private ItemsContainer _itemsContainer;
@@ -28,7 +29,7 @@ namespace Interactable.Custom.ClickInteractions
         private InventoryItem _currentInventoryItem;
 
         public override event Action OnInteract;
-        
+
         /// <summary>
         /// Called on both clients (network action)
         /// </summary>
@@ -49,7 +50,8 @@ namespace Interactable.Custom.ClickInteractions
             var handsItem = _itemSelector.SelectedItem;
 
             if (!anyObjectAccept &&
-                !allowedItems.Contains(_itemsContainer.GetSOByID(_itemSelector.SelectedItem.Item.ID)))
+                !allowedItems.Contains(_itemsContainer.GetSOByID(handsItem.Item.ID)) ||
+                blacklistItems.Contains(_itemsContainer.GetSOByID(handsItem.Item.ID)))
                 return;
 
             PlaceObject(PhotonNetwork.LocalPlayer.ActorNumber,
@@ -64,6 +66,8 @@ namespace Interactable.Custom.ClickInteractions
 
             PhotonView.RPC(nameof(PlaceObject_RPC), RpcTarget.All, playerActorNumber, inventoryID);
         }
+
+        public void ActivatePlaceZone() => touchCollider.enabled = true;
 
         [PunRPC]
         private void PlaceObject_RPC(int playerActorNumber, int inventoryID)

@@ -9,7 +9,7 @@ using VContainer;
 
 namespace Levels._4
 {
-    public class Stove : MonoBehaviourPun // TODO: Combine chemistry stuff together
+    public class Stove : MonoBehaviourPun // TODO: Combine chemistry stuff together (with abstract class)
     {
         [SerializeField] private SelectedItemChecker selectedItemChecker;
         [SerializeField] private Collider itemCheckerCollider;

@@ -8,7 +8,7 @@ using VContainer;
 
 namespace Levels._4
 {
-    public class Trashcan : MonoBehaviour
+    public class SelectedItemChanger : MonoBehaviour
     {
         [SerializeField] private SelectedItemChecker selectedItemChecker;
         [SerializeField] private ItemSO returnItem;
@@ -24,9 +24,6 @@ namespace Levels._4
         // Execute on both clients
         private void SelectedItemCheckerOnOnItemAccepted(InventoryItem item, int inventoryIndex)
         {
-            if (_itemSelector.SelectedItem.Item.ID == _itemsContainer.GetItemBySO(returnItem).ID)
-                return;
-
             var inv = _inventories.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(inventoryIndex));
             inv.TryRemoveItem(item);
             inv.AddItem(new InventoryItem(_itemsContainer.GetItemBySO(returnItem), null));

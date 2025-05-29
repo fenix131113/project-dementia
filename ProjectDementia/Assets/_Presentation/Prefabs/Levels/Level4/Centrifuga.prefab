@@ -100,7 +100,7 @@ GameObject:
   - component: {fileID: 8768368860181350782}
   - component: {fileID: 2697829769034770334}
   m_Layer: 6
-  m_Name: Centrefuga
+  m_Name: Centrifuga
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +194,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f2fdd4eaa824ea3a0656d227f9592de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <InteractText>k__BackingField: "\u0412\u0441\u0442\u0430\u0432\u0438\u0442\u044C"
+  <InteractText>k__BackingField: "\u0426\u0435\u043D\u0442\u0440\u0438\u0444\u0443\u0433\u0438\u0440\u043E\u0432\u0430\u0442\u044C"
   <PhotonView>k__BackingField: {fileID: 8768368860181350782}
   onInteractEvent:
     m_PersistentCalls:

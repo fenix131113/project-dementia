@@ -9,11 +9,11 @@ using VContainer;
 
 namespace Levels._4
 {
-    public class Centrifuge : MonoBehaviourPun // TODO: Combine chemistry stuff together (with abstract class)
+    public class Filter : MonoBehaviourPun // TODO: Combine chemistry stuff together (with abstract class)
     {
         [SerializeField] private SelectedItemChecker selectedItemChecker;
         [SerializeField] private Transform bottlePoint;
-        [SerializeField] private Collider centrifugeCollider;
+        [SerializeField] private Collider filterCollider;
         [SerializeField] private float completeTime;
         [SerializeField] private string completeTag;
 
@@ -29,7 +29,7 @@ namespace Levels._4
 
         private void OnItemTaken()
         {
-            centrifugeCollider.enabled = true;
+            filterCollider.enabled = true;
             _currentInventoryItem = null;
         }
         
@@ -54,7 +54,7 @@ namespace Levels._4
         
         private void OnItemAccepted(InventoryItem item, int inventoryId)
         {
-            centrifugeCollider.enabled = false;
+            filterCollider.enabled = false;
             _currentInventoryItem = item;
 
             var soItem = _itemsContainer.GetSOByID(item.Item.ID);
@@ -81,6 +81,6 @@ namespace Levels._4
             yield return new WaitForSeconds(completeTime);
             
             photonView.RPC(nameof(OnComplete), RpcTarget.All);
-        }
+        }  
     }
 }
