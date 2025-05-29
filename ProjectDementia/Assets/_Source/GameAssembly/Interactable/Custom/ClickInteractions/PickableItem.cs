@@ -17,8 +17,9 @@ namespace Interactable.Custom.ClickInteractions
     public class PickableItem : AInteractableObject
     {
         [field: SerializeField] public ItemSO Item { get; private set; }
+        [SerializeField] private List<string> customItemData = new();
 
-        public List<string> customItemData;
+        public IReadOnlyCollection<string> CustomData => customItemData;
 
         public override event Action OnInteract;
 
@@ -39,11 +40,27 @@ namespace Interactable.Custom.ClickInteractions
         /// </summary>
         public void InitCustomData(List<string> customData)
         {
-            if(customData == null)
+            if (customData == null)
                 return;
-            
-            PhotonView.RPC(nameof(InitCustomData_RPC), RpcTarget.All, new object[] { customData.ToArray() });
 
+            PhotonView.RPC(nameof(InitCustomData_RPC), RpcTarget.All, new object[] { customData.ToArray() });
+        }
+
+        public void AddCustomDataTag(string dataTag) // TODO: Replace with single logic (interface, class or something)
+        {
+            if (CustomData.Contains(dataTag))
+                return;
+
+            customItemData.Add(dataTag);
+        }
+
+        public bool TryRemoveDataTag(string dataTag)
+        {
+            if (!CustomData.Contains(dataTag))
+                return false;
+
+            customItemData.Remove(dataTag);
+            return true;
         }
 
         [PunRPC]
@@ -60,7 +77,7 @@ namespace Interactable.Custom.ClickInteractions
         {
             _playersInventory.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(actorNumber))
                 .AddItem(_itemsContainer.GetItemBySO(Item), customItemData);
-            
+
             OnInteract?.Invoke();
             Destroy(gameObject);
         }

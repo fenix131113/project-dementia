@@ -50,9 +50,10 @@ namespace Core.Network
 
             _playerObjects.SetCurrentPlayerObject(spawned);
 
-            spawned.GetComponent<PhotonView>()
-                .RPC("SetNickname", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
-            
+            var view = spawned.GetComponent<PhotonView>();
+            view.RPC("SetNickname", RpcTarget.All, PhotonNetwork.LocalPlayer.NickName);
+            view.RPC("SetPlayerModel", RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber);
+
             photonView.RPC(nameof(SyncPlayerRegistration), RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber,
                 spawned.GetComponent<PhotonView>().ViewID);
         }

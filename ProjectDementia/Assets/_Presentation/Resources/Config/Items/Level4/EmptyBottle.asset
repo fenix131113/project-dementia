@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5bf79321f3f74eb780715b5febc51c6c, type: 3}
+  m_Name: EmptyBottle
+  m_EditorClassIdentifier: 
+  <ItemName>k__BackingField: "\u041F\u0443\u0441\u0442\u0430\u044F \u0441\u043A\u043B\u044F\u043D\u043A\u0430"
+  <Icon>k__BackingField: {fileID: -1151012804, guid: 4cb5ed9fde21f674db75513456f5be74, type: 3}
+  <Prefab>k__BackingField: {fileID: 1215443284130408940, guid: 016c10dc1a27bb343a99be60e8232138, type: 3}
+  <AdditionalFolderPath>k__BackingField: Level4

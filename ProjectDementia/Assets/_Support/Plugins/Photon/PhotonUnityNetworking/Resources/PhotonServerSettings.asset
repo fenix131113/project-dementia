@@ -89,6 +89,10 @@ MonoBehaviour:
   - ToggleSecond
   - SwitchPartPosition
   - SyncPlayerRegistration
+  - SetPlayerModel
+  - InitSpawnedObject
+  - CompleteCook
+  - OnComplete
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

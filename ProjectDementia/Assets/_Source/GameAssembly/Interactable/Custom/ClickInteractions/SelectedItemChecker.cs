@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Interactable.Base;
@@ -17,6 +18,7 @@ namespace Interactable.Custom.ClickInteractions
 
         [SerializeField] private bool anyInteractItem = true;
         [SerializeField] public ItemSO[] interactItems;
+        [SerializeField] public List<ItemSO> blacklistItems;
 
         private PlayersInventory _inventory;
         private ItemsContainer _items;
@@ -42,12 +44,13 @@ namespace Interactable.Custom.ClickInteractions
         public override void Interact()
         {
             base.Interact();
-            
+
             OnInteract?.Invoke();
 
-            if (!CanCheckItem || _selector.SelectedItem == null || (!anyInteractItem &&
-                                                                    !interactItems.Select(x => _items.GetItemBySO(x))
-                                                                        .Contains(_selector.SelectedItem.Item)))
+            if (!CanCheckItem || _selector.SelectedItem == null ||
+                blacklistItems.Contains(_items.GetSOByID(_selector.SelectedItem.Item.ID)) || (!anyInteractItem &&
+                    !interactItems.Select(x => _items.GetItemBySO(x))
+                        .Contains(_selector.SelectedItem.Item)))
                 return;
 
             PhotonView.RPC(nameof(CheckItem_RPC), RpcTarget.All, PhotonNetwork.LocalPlayer.ActorNumber,

@@ -13,6 +13,15 @@ namespace InventorySystem
             Item = item;
             CustomData = customData;
         }
+        
+        public bool TryRemoveDataTag(string dataTag) // TODO: Replace with single logic (interface, class or something)
+        {
+            if (!CustomData.Contains(dataTag))
+                return false;
+
+            CustomData.Remove(dataTag);
+            return true;
+        }
 
         public void AddCustomDataTag(string dataTag)
         {

@@ -1351,6 +1351,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
+--- !u!114 &1584005847 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3662648937876976, guid: 837d25362fe745f4c93d650f0434b1e9, type: 3}
+  m_PrefabInstance: {fileID: 1584005846}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af79eaca3f0348dda5b4a3bd2ccdd62f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1683651572
 GameObject:
   m_ObjectHideFlags: 0
@@ -1696,10 +1707,12 @@ MonoBehaviour:
   - {fileID: 8790881335387501748}
   - {fileID: 1254577878}
   - {fileID: 1387646659}
+  - {fileID: 1584005847}
   levelsScreenMaterials:
   - {fileID: 2100000, guid: 14dfd5b3b31cca640abe1faa0bdc0daa, type: 2}
   - {fileID: 2100000, guid: 987d813420f72e14285741e57d6cbea8, type: 2}
   - {fileID: 2100000, guid: 27ed15b27884c2745b63edc1c65b710d, type: 2}
+  - {fileID: 2100000, guid: 1fd168c2dd624e648bc17c98706635fa, type: 2}
   startSelectedButton: {fileID: 8790881335387501748}
   levelIconScreen: {fileID: 7660791529447893407}
 --- !u!1 &1960284390
