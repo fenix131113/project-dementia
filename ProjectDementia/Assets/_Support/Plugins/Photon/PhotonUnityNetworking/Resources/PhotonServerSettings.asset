@@ -94,6 +94,8 @@ MonoBehaviour:
   - CompleteCook
   - OnComplete
   - InitSpawnedPickable
+  - CheckLevelLoadConditions
+  - ToggleDoor
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DG.Tweening;
 using Photon.Pun;
 using UnityEngine;
@@ -12,7 +13,19 @@ namespace Levels._3
         [SerializeField] private Transform partPivot;
         [SerializeField] private List<float> partRotations;
         [SerializeField] private float rotationTime;
-        
+
+        /// <summary>
+        /// Invokes on both clients (network event)
+        /// </summary>
+        public event Action OnRotateChanged;
+
+        private void Start()
+        {
+            partPivot.DOLocalRotate(new Vector3(-partRotations[CurrentRotateIndex], 0, 0), rotationTime);
+        }
+
+        private void OnDestroy() => OnRotateChanged = null;
+
         public void SwitchPartPosition_RPC() => photonView.RPC(nameof(SwitchPartPosition), RpcTarget.All);
 
         [PunRPC]
@@ -24,6 +37,7 @@ namespace Levels._3
                 CurrentRotateIndex = 0;
             
             partPivot.DOLocalRotate(new Vector3(-partRotations[CurrentRotateIndex], 0, 0), rotationTime);
+            OnRotateChanged?.Invoke();
         }
     }
 }

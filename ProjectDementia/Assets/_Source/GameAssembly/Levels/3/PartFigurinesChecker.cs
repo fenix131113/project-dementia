@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Interactable.Custom.ClickInteractions;
 using ItemsSystem.Data;
 using UnityEngine;
@@ -10,12 +11,13 @@ namespace Levels._3
     {
         [SerializeField] private List<ItemObjectPlaceZone> firstPlayerZones;
         [SerializeField] private List<ItemObjectPlaceZone> secondPlayerZones;
-        [SerializeField] private List<ItemSO> firstAnswer;
-        [SerializeField] private List<ItemSO> secondAnswer;
+        [SerializeField] private List<PartFigureAnswerGroup> firstAnswer;
+        [SerializeField] private List<PartFigureAnswerGroup> secondAnswer;
         [SerializeField] private UnityEvent onPuzzleCompleted;
 
         private bool _firstCompleted;
         private bool _secondCompleted;
+        private bool _puzzleCompleted;
 
         private void Start() => Bind();
 
@@ -26,11 +28,21 @@ namespace Levels._3
             if (!_firstCompleted || !_secondCompleted)
                 return;
 
+            _puzzleCompleted = true;
             onPuzzleCompleted?.Invoke();
         }
 
-        private void OnFirstObjectItemChanged(PickableItem items) // Call on both clients via Bind()
+        private void OnFirstRotationChanged() => OnFirstObjectItemChanged(null);
+        private void OnSecondRotationChanged() => OnSecondObjectItemChanged(null);
+
+        private void OnFirstObjectItemChanged(PickableItem item) // Call on both clients via Bind()
         {
+            if (_puzzleCompleted)
+                return;
+
+            if (item)
+                item.GetComponent<PartFigurines>().OnRotateChanged += OnFirstRotationChanged;
+
             var completed = true;
 
             for (var i = 0; i < 3; i++)
@@ -39,22 +51,34 @@ namespace Levels._3
                     completed = false;
                     break;
                 }
-                else if (firstAnswer[i] != firstPlayerZones[i].SpawnedItem.Item)
+                else if (firstAnswer[i].Item != firstPlayerZones[i].SpawnedItem.Item)
+                {
+                    completed = false;
+                    break;
+                }
+                else if (firstAnswer[i].RotateIndex !=
+                         firstPlayerZones[i].SpawnedItem.GetComponent<PartFigurines>().CurrentRotateIndex)
                 {
                     completed = false;
                     break;
                 }
 
-            if (completed)
-            {
-                firstPlayerZones.ForEach(x => x.SpawnedItem.SetInteractable(false));
-                _firstCompleted = true;
-                CheckCompletedConditions();
-            }
+            if (!completed)
+                return;
+
+            firstPlayerZones.ForEach(x => x.SpawnedItem.SetInteractable(false));
+            _firstCompleted = true;
+            CheckCompletedConditions();
         }
 
-        private void OnSecondObjectItemChanged(PickableItem items) // Call on both clients via Bind()
+        private void OnSecondObjectItemChanged(PickableItem item) // Call on both clients via Bind()
         {
+            if (_puzzleCompleted)
+                return;
+
+            if (item)
+                item.GetComponent<PartFigurines>().OnRotateChanged += OnSecondRotationChanged;
+
             var completed = true;
 
             for (var i = 0; i < 3; i++)
@@ -63,18 +87,24 @@ namespace Levels._3
                     completed = false;
                     break;
                 }
-                else if (secondAnswer[i] != secondPlayerZones[i].SpawnedItem.Item)
+                else if (secondAnswer[i].Item != secondPlayerZones[i].SpawnedItem.Item)
+                {
+                    completed = false;
+                    break;
+                }
+                else if (secondAnswer[i].RotateIndex !=
+                         secondPlayerZones[i].SpawnedItem.GetComponent<PartFigurines>().CurrentRotateIndex)
                 {
                     completed = false;
                     break;
                 }
 
-            if (completed)
-            {
-                secondPlayerZones.ForEach(x => x.SpawnedItem.SetInteractable(false));
-                _secondCompleted = true;
-                CheckCompletedConditions();
-            }
+            if (!completed)
+                return;
+
+            secondPlayerZones.ForEach(x => x.SpawnedItem.SetInteractable(false));
+            _secondCompleted = true;
+            CheckCompletedConditions();
         }
 
         private void Bind()
@@ -87,6 +117,13 @@ namespace Levels._3
         {
             firstPlayerZones.ForEach(x => x.OnObjectPlaced -= OnFirstObjectItemChanged);
             secondPlayerZones.ForEach(x => x.OnObjectPlaced -= OnSecondObjectItemChanged);
+        }
+
+        [Serializable]
+        private class PartFigureAnswerGroup
+        {
+            [field: SerializeField] public ItemSO Item { get; private set; }
+            [field: SerializeField] public int RotateIndex { get; private set; }
         }
     }
 }

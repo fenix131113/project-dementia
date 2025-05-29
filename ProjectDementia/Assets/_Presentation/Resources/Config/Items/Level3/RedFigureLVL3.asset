@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: RedFigureLVL3
   m_EditorClassIdentifier: 
   <ItemName>k__BackingField: "\u041A\u0440\u0430\u0441\u043D\u0430\u044F \u0444\u0438\u0433\u0443\u0440\u0430"
-  <Icon>k__BackingField: {fileID: 21300000, guid: 5a0a11df3915f7b448cf5f4266da3aa3, type: 3}
-  <Prefab>k__BackingField: {fileID: 381827785666121448, guid: 1cc66a49233efe247bd0c4e1b1024875, type: 3}
+  <Icon>k__BackingField: {fileID: 1478493999, guid: 12fa8ab80b3a1fa43898428e262eecda, type: 3}
+  <Prefab>k__BackingField: {fileID: 4267555181403095476, guid: 1cc66a49233efe247bd0c4e1b1024875, type: 3}
   <AdditionalFolderPath>k__BackingField: Level3
