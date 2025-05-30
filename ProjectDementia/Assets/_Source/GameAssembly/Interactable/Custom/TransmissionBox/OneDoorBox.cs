@@ -37,6 +37,17 @@ namespace Interactable.Custom.TransmissionBox
 
         private void OnDestroy() => Expose();
 
+        public void ClearBox()
+        {
+            if(!itemObjectPlaceZone.SpawnedItem)
+                return;
+            
+            Destroy(itemObjectPlaceZone.SpawnedItem.gameObject);
+            itemObjectPlaceZone.ActivatePlaceZone();
+        }
+
+        public void SetPlaceAbility(bool state) => itemObjectPlaceZone.SetInteractable(state);
+
         public void ToggleDoor_RPC(bool toggle) => photonView.RPC(nameof(ToggleDoor), RpcTarget.All, toggle);
 
         [PunRPC]

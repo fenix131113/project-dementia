@@ -30,7 +30,7 @@ namespace ChatSystem
                 .Where(w => w.Length > 0)
                 .ToHashSet();
 
-            Debug.Log("TextCleaner: Loaded dictionary with " + dictionary.Count + " words.");
+            //Debug.Log("TextCleaner: Loaded dictionary with " + dictionary.Count + " words.");
 
             string filtersDir = Path.Combine(Application.streamingAssetsPath, "Filters");
             if (Directory.Exists(filtersDir))
@@ -42,7 +42,7 @@ namespace ChatSystem
                     categoryWords[category] = words;
                 }
 
-                Debug.Log("TextCleaner: Loaded " + categoryWords.Count + " filter categories from Filters/");
+                //Debug.Log("TextCleaner: Loaded " + categoryWords.Count + " filter categories from Filters/");
             }
         }
 

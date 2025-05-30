@@ -11,6 +11,12 @@ namespace InventorySystem.Data
     {
         [field: SerializeField] public ItemSO Item { get; private set; }
         [field: SerializeField] public List<string> Tags { get; private set; }
+
+        public ItemTagsPair(ItemSO item, List<string> tags)
+        {
+            Item = item;
+            Tags = tags;
+        }
     }
 
     public static class ItemTagsPairExtension
@@ -21,9 +27,12 @@ namespace InventorySystem.Data
             if (pair.Item != item)
                 return false;
 
-            return compareType switch
+            if ((pair.Tags == null || pair.Tags.Count == 0) && (tags == null || tags.Count == 0))
+                return true;
+
+            return pair.Tags != null && compareType switch
             {
-                ItemTagsCompare.EQUAL => tags.Count == pair.Tags.Count && pair.Tags.Equals(tags),
+                ItemTagsCompare.EQUAL => tags.SequenceEqual(pair.Tags),
                 ItemTagsCompare.ANY => tags.Any(tag => pair.Tags.Contains(tag)),
                 ItemTagsCompare.MINIMUM_ALL => tags.All(tag => pair.Tags.Contains(tag)),
                 _ => throw new ArgumentOutOfRangeException(nameof(compareType), compareType, null)
