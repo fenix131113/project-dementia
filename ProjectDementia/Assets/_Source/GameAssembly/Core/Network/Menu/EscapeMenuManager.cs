@@ -1,5 +1,8 @@
-using UnityEngine;
+using Core.Initializing;
 using Photon.Pun;
+using Player;
+using UnityEngine;
+using VContainer;
 
 public class EscapeMenuManager : MonoBehaviour
 {
@@ -7,19 +10,14 @@ public class EscapeMenuManager : MonoBehaviour
     [SerializeField] private GameObject settingsPanel;
     [SerializeField] private GameObject confirmationPanel;
 
-    private Player.PlayerController playerController;
+    [Inject] private PlayerObjects _players;
+
+    private PlayerController playerController;
     private bool isMenuOpen = false;
 
-    private void Awake()
+    private void Start()
     {
-        foreach (var player in FindObjectsOfType<Player.PlayerController>())
-        {
-            if (player.TryGetComponent(out PhotonView view) && view.IsMine)
-            {
-                playerController = player;
-                break;
-            }
-        }
+        playerController = _players.PlayerObject.GetComponent<PlayerController>();
     }
 
     private void Update()

@@ -97,6 +97,7 @@ MonoBehaviour:
   - CheckLevelLoadConditions
   - ToggleDoor
   - InitSpawnedItem
+  - InvokeEvent
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 1
