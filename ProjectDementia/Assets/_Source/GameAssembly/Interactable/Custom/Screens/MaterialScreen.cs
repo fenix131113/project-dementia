@@ -7,11 +7,10 @@ namespace Interactable.Custom.Screens
         [field: SerializeField] public Material DefaultMaterial { get; private set; }
 
         [SerializeField] private MeshRenderer screenRenderer;
-        
-        public void ResetScreen()
-        {
-            screenRenderer.material = DefaultMaterial;
-        }
+
+        private void Awake() => ResetScreen();
+
+        public void ResetScreen() => screenRenderer.material = DefaultMaterial;
 
         public void SetMaterial(Material material) => screenRenderer.material = material;
     }

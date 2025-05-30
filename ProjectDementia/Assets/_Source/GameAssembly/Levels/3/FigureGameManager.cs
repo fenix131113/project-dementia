@@ -11,10 +11,18 @@ namespace Levels._3
 {
     public class FigureGameManager : MonoBehaviour
     {
-        [SerializeField] private BlockableTransitionBox firstPlayerBox;
-        [SerializeField] private BlockableTransitionBox secondPlayerBox;
-        [SerializeField] private MaterialScreen firstPlayerScreen;
-        [SerializeField] private MaterialScreen secondPlayerScreen;
+        [SerializeField] private OneDoorBox firstPlayerBox;
+        [SerializeField] private OneDoorBox secondPlayerBox;
+        [SerializeField] private Pipe firstPlayerTrashPipe;
+        [SerializeField] private Pipe firstPlayerCorrectPipe;
+        [SerializeField] private Pipe secondPlayerTrashPipe;
+        [SerializeField] private Pipe secondPlayerCorrectPipe;
+        [SerializeField] private MaterialScreen firstPlayerMainScreen;
+        [SerializeField] private MaterialScreen firstPlayerPart1Screen;
+        [SerializeField] private MaterialScreen firstPlayerPart2Screen;
+        [SerializeField] private MaterialScreen secondPlayerMainScreen;
+        [SerializeField] private MaterialScreen secondPlayerPart1Screen;
+        [SerializeField] private MaterialScreen secondPlayerPart2Screen;
         [SerializeField] private List<PhaseGroup> phases;
 
         private int _currentPhaseIndex;
@@ -32,9 +40,9 @@ namespace Levels._3
         private void SetCurrentPhase()
         {
             if (phases[_currentPhaseIndex].showColorToFirstPlayer)
-                firstPlayerScreen.SetMaterial(phases[_currentPhaseIndex].screenMaterial);
+                firstPlayerMainScreen.SetMaterial(phases[_currentPhaseIndex].screenMaterial);
             else
-                secondPlayerScreen.SetMaterial(phases[_currentPhaseIndex].screenMaterial);
+                secondPlayerMainScreen.SetMaterial(phases[_currentPhaseIndex].screenMaterial);
         }
 
         private void CheckForNextPhase() // Called on both clients (network method)
@@ -51,27 +59,43 @@ namespace Levels._3
 
             if (phaseCompleted)
             {
-                firstPlayerBox.ToggleFirst(false, true);
-                secondPlayerBox.ToggleSecond(false, true);
-                firstPlayerBox.CurrentItem.OnInteract += OnFirstItemTaken; // Expose in PickableItem
-                secondPlayerBox.CurrentItem.OnInteract += OnSecondItemTaken; // Expose in PickableItem
                 _currentPhaseIndex++;
-                firstPlayerScreen.ResetScreen();
-                secondPlayerScreen.ResetScreen();
+                firstPlayerMainScreen.ResetScreen();
+                secondPlayerMainScreen.ResetScreen();
+                firstPlayerPart1Screen.ResetScreen();
+                secondPlayerPart1Screen.ResetScreen();
+                firstPlayerPart2Screen.ResetScreen();
+                secondPlayerPart2Screen.ResetScreen();
                 
+                firstPlayerCorrectPipe.DropItem(secondPlayerBox.CurrentItem.Item);
+                firstPlayerBox.ClearBox();
+                OnFirstDropped();
+                
+                secondPlayerCorrectPipe.DropItem(firstPlayerBox.CurrentItem.Item);
+                secondPlayerBox.ClearBox();
+                OnFirstDropped();
+
                 if (_currentPhaseIndex >= phases.Count)
                 {
-                    firstPlayerBox.ToggleBoxActivation(false);
-                    secondPlayerBox.ToggleBoxActivation(false);
+                    firstPlayerBox.SetPlaceAbility(false);
+                    secondPlayerBox.SetPlaceAbility(false);
                     return;
                 }
             }
             else
             {
-                firstPlayerBox.ToggleFirst(true, false);
-                secondPlayerBox.ToggleSecond(true, false);
+                firstPlayerTrashPipe.DropItem(firstPlayerBox.CurrentItem.Item);
+                firstPlayerBox.ClearBox();
+                OnFirstDropped();
+
+                secondPlayerTrashPipe.DropItem(secondPlayerBox.CurrentItem.Item);
+                secondPlayerBox.ClearBox();
+                OnSecondDropped();
             }
-            
+
+            firstPlayerBox.ToggleDoor(true);
+            secondPlayerBox.ToggleDoor(true);
+
             _isFirstPlaced = false;
             _isSecondPlaced = false;
 
@@ -84,18 +108,42 @@ namespace Levels._3
         private void SetFirstPlaced()
         {
             _isFirstPlaced = true;
+            
+            var mat = firstPlayerBox.CurrentItem.transform.GetChild(0)
+                .GetComponent<MeshRenderer>().material;
+            
+            firstPlayerPart1Screen.SetMaterial(mat);
+            secondPlayerPart1Screen.SetMaterial(mat);
+            
             CheckForNextPhase();
         }
 
         private void SetSecondPlaced()
         {
             _isSecondPlaced = true;
+                        
+            var mat = secondPlayerBox.CurrentItem.transform.GetChild(0)
+                .GetComponent<MeshRenderer>().material;
+            
+            firstPlayerPart2Screen.SetMaterial(mat);
+            secondPlayerPart2Screen.SetMaterial(mat);
+
             CheckForNextPhase();
         }
 
-        private void OnFirstItemTaken() => firstPlayerBox.ToggleSecond(false, true);
+        private void OnFirstDropped()
+        {
+            firstPlayerBox.ToggleDoor(true);
+            firstPlayerPart1Screen.ResetScreen();
+            secondPlayerPart1Screen.ResetScreen();
+        }
 
-        private void OnSecondItemTaken() => secondPlayerBox.ToggleFirst(false, true);
+        private void OnSecondDropped()
+        {
+            secondPlayerBox.ToggleDoor(true);
+            firstPlayerPart2Screen.ResetScreen();
+            secondPlayerPart2Screen.ResetScreen();
+        }
 
         private void Bind()
         {

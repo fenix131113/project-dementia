@@ -319,12 +319,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partPivot: {fileID: 3346281420051004643}
   partRotations:
-  - 15
-  - 30
+  - 0
   - 45
-  - 60
-  - 75
   - 90
+  - 135
+  - 180
   rotationTime: 0.25
 --- !u!1 &7553517355402297552
 GameObject:

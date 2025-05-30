@@ -491,10 +491,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   partPivot: {fileID: 242626404748764159}
   partRotations:
-  - 15
-  - 30
+  - 0
   - 45
-  - 60
-  - 75
   - 90
+  - 135
+  - 180
   rotationTime: 0.25
