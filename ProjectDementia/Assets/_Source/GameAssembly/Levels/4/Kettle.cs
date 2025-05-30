@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core;
 using Interactable.Custom.ClickInteractions;
+using InventorySystem.Data;
 using ItemsSystem.Data;
 using Photon.Pun;
 using UnityEngine;
@@ -35,8 +36,12 @@ namespace Levels._4
                 return;
 
             var result = recipes.FirstOrDefault(x =>
-                (x.firstIngredient == _firstItem.Item && x.secondIngredient == _secondItem.Item) ||
-                (x.secondIngredient == _firstItem.Item && x.firstIngredient == _secondItem.Item));
+                (x.firstIngredient.CheckItemTags(_firstItem.Item, _firstItem.CustomData.ToList(),
+                    ItemTagsCompare.EQUAL) && x.secondIngredient.CheckItemTags(_secondItem.Item,
+                    _secondItem.CustomData.ToList(), ItemTagsCompare.EQUAL)) ||
+                (x.secondIngredient.CheckItemTags(_firstItem.Item, _firstItem.CustomData.ToList(),
+                    ItemTagsCompare.EQUAL) && x.firstIngredient.CheckItemTags(_secondItem.Item,
+                    _secondItem.CustomData.ToList(), ItemTagsCompare.EQUAL)));
 
             Destroy(_firstItem.gameObject);
             Destroy(_secondItem.gameObject);
@@ -61,9 +66,9 @@ namespace Levels._4
 
         private void CheckResultSpace()
         {
-            if(!_firstResultPlaceClear || !_secondResultPlaceClear)
+            if (!_firstResultPlaceClear || !_secondResultPlaceClear)
                 return;
-            
+
             firstItemZone.ActivatePlaceZone();
             secondItemZone.ActivatePlaceZone();
         }
@@ -73,7 +78,7 @@ namespace Levels._4
             _firstResultPlaceClear = true;
             CheckResultSpace();
         }
-        
+
         private void OnSecondResultTaken()
         {
             _secondResultPlaceClear = true;
@@ -83,7 +88,7 @@ namespace Levels._4
         private void SpawnEmpty()
         {
             _firstResultPlaceClear = false;
-            
+
             if (!PhotonNetwork.IsMasterClient)
                 return;
 
@@ -97,7 +102,7 @@ namespace Levels._4
         private void SpawnResult(ItemSO result)
         {
             _secondResultPlaceClear = false;
-            
+
             if (!PhotonNetwork.IsMasterClient)
                 return;
 
@@ -149,8 +154,8 @@ namespace Levels._4
         [Serializable]
         private class MixGroup
         {
-            [field: SerializeField] public ItemSO firstIngredient;
-            [field: SerializeField] public ItemSO secondIngredient;
+            [field: SerializeField] public ItemTagsPair firstIngredient;
+            [field: SerializeField] public ItemTagsPair secondIngredient;
             [field: SerializeField] public ItemSO result;
         }
     }
