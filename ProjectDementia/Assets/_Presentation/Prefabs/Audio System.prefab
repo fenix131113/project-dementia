@@ -1,0 +1,121 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3276437980545524532
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6816908524446405334}
+  - component: {fileID: 1519600892670029664}
+  - component: {fileID: 7302559648146782801}
+  - component: {fileID: 1365243680098967925}
+  - component: {fileID: 1302255669563284416}
+  - component: {fileID: 4572209927593799910}
+  m_Layer: 0
+  m_Name: Audio System
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6816908524446405334
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276437980545524532}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1007.0731, y: 518.7706, z: -0.13106978}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1519600892670029664
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276437980545524532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 211a720ce0418d143957592f92dc9ec1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  voiceSource: {fileID: 0}
+--- !u!114 &7302559648146782801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276437980545524532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7ffb141477b2f3c40b6a2cbb2a59b7d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioMixer: {fileID: 24100000, guid: db17d95c8562e6c4791fb1cc7f8925ee, type: 2}
+--- !u!114 &1365243680098967925
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276437980545524532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 50182992d4d27a840b11dd295699b629, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepSource: {fileID: 0}
+  footstepClips: []
+  jumpSource: {fileID: 0}
+  jumpClips: []
+--- !u!114 &1302255669563284416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276437980545524532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b23f976edd4454ba5c5ba12af62c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueClips:
+  - {fileID: 8300000, guid: e1a4b884a8bb4ce46a41badddb8231b2, type: 3}
+  - {fileID: 8300000, guid: 3944e063f77fb0146acc4b2e5185cd9b, type: 3}
+  - {fileID: 8300000, guid: b068973c1fa19a04f8b5ce5b08ab16f2, type: 3}
+  - {fileID: 8300000, guid: b02f1b3adfd3b7044b2a7e2f07d412ce, type: 3}
+  delayBeforeStart: 1
+  playOnStart: 1
+--- !u!114 &4572209927593799910
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3276437980545524532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 564a762d04898ba4890b9388ab9b301e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  randomClips:
+  - {fileID: 8300000, guid: 038594b06f7b67e4aa4f03afebe1dc26, type: 3}
+  - {fileID: 8300000, guid: c51e43a05575e5e48952f2430e77c136, type: 3}
+  - {fileID: 8300000, guid: b3c04f9e6fa0441499869c4cb86b2874, type: 3}
+  - {fileID: 8300000, guid: d4c59baa2c7242446916934f68de3797, type: 3}
+  - {fileID: 8300000, guid: 8f3b704066aeed441bfd017379f0593a, type: 3}
+  - {fileID: 8300000, guid: 70b232fe17595b3419ff3d7d1847fc28, type: 3}
+  - {fileID: 8300000, guid: 8fc0b4c36f1b12d4daa5390342052a88, type: 3}
+  minDelay: 120
+  maxDelay: 300
