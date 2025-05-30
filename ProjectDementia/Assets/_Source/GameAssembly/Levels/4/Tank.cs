@@ -22,6 +22,7 @@ namespace Levels._4
         [SerializeField] private Material activatedIndicatorMat;
         [SerializeField] private List<TankAnswerGroup> answer;
         [SerializeField] private UnityEvent onLevelCompleted;
+        [SerializeField] private ItemSO returnItem;
 
         [Inject] private ItemsContainer _itemsContainer;
         [Inject] private PlayersInventory _playersInventory;
@@ -44,7 +45,9 @@ namespace Levels._4
 
             secondTankIndicators[_currentPhaseIndex].material = activatedIndicatorMat;
             firstTankIndicators[_currentPhaseIndex].material = activatedIndicatorMat;
-            _playersInventory.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(inventoryID)).TryRemoveItem(item);
+            var inv = _playersInventory.GetPlayerInventory(SemiFunc.GetPlayerByActorNumber(inventoryID));
+            inv.TryRemoveItem(item);
+            inv.AddItem(new InventoryItem(_itemsContainer.GetItemBySO(returnItem), null));
 
             if (_currentPhaseIndex >= answer.Count - 1)
             {

@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Interactable.Custom.ClickInteractions;
 using Interactable.Custom.Screens;
 using Interactable.Custom.TransmissionBox;
 using ItemsSystem.Data;
 using UnityEngine;
-using UnityEngine.Events;
 
 namespace Levels._3
 {
