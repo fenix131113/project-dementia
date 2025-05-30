@@ -49,8 +49,11 @@ namespace Interactable.Custom.ClickInteractions
             base.Interact();
             var handsItem = _itemSelector.SelectedItem;
 
-            if (!anyObjectAccept &&
-                !allowedItems.Contains(_itemsContainer.GetSOByID(handsItem.Item.ID)) ||
+            if(handsItem == null)
+                return;
+            
+            if ((!anyObjectAccept &&
+                !allowedItems.Contains(_itemsContainer.GetSOByID(handsItem.Item.ID))) ||
                 blacklistItems.Contains(_itemsContainer.GetSOByID(handsItem.Item.ID)))
                 return;
 

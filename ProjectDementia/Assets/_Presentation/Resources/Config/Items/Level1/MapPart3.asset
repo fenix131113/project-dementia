@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemName>k__BackingField: "\u041A\u0443\u0441\u043E\u0447\u0435\u043A \u043A\u0430\u0440\u0442\u044B"
   <Icon>k__BackingField: {fileID: 21300000, guid: bd293dc32f4aaf94e8274f2fac2cdf89, type: 3}
-  <Prefab>k__BackingField: {fileID: 9036343381027853145, guid: 932fa11928906d64da82f2088b0654fd, type: 3}
+  <Prefab>k__BackingField: {fileID: 3536591734790186179, guid: 932fa11928906d64da82f2088b0654fd, type: 3}
   <AdditionalFolderPath>k__BackingField: Level1
